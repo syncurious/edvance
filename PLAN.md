@@ -33,12 +33,12 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 ## Current state
 
-- Current requested day: Day 6
-- Last fully completed day: Day 6
-- Active task: Day 6 complete; awaiting Day 7
-- Overall status: COMPLETE THROUGH DAY 6
+- Current requested day: Day 7
+- Last fully completed day: Day 7
+- Active task: Day 7 complete; awaiting Day 8
+- Overall status: COMPLETE THROUGH DAY 7
 - Last updated: 2026-09-04
-- Next action: Start Day 7 with the school-management service contract, list view, and mock CRUD flows
+- Next action: Start Day 8 with subscription plan models and usage/billing views, then build user management
 
 ## Carry-over Queue
 
@@ -66,6 +66,7 @@ Complete this queue before new work for the requested day, except for blocked it
 | 2026-09-03 | Use standard Next.js 16.3.4 with no Sites runtime or `.openai` folder.                    | The user explicitly requested that Sites and the OpenAI folder not be used. | Next now owns development and production builds; Sites/Vinext/Cloudflare dependencies and configuration were removed.   |
 | 2026-09-04 | Standardize dashboard data presentation on `ready`, `loading`, `empty`, and `error`.      | Every dashboard module needs predictable async behavior.                    | Shared cards, charts, activity, tables, actions, and progress can be composed without route-specific state markup.      |
 | 2026-09-04 | Load the Super Admin overview through a feature service and keep request state local.     | The current mock must be replaceable without rewriting the page.            | A NestJS implementation can replace the mock behind the same interface; RTK Query remains reserved for API integration. |
+| 2026-09-04 | Keep school list queries and CRUD mutations behind one `SchoolService` interface.         | List, detail, and form routes need one consistent source of data.            | Mock mutations persist across client navigation; a NestJS service can replace them without changing screen components.  |
 
 ## Definition of done for every task
 
@@ -215,13 +216,13 @@ Acceptance criteria: the page clearly communicates platform health, is responsiv
 
 Goal: deliver the first complete CRUD user interface.
 
-- [ ] PENDING — Build `/super-admin/schools`, `/new`, `/[id]`, and edit experience.
-- [ ] PENDING — Build a school table with School, Code, Campus, Students, Plan, Status, Created, and Actions.
-- [ ] PENDING — Add search, filters, sorting, pagination, and status filtering.
-- [ ] PENDING — Add view, create, edit, and delete/confirmation flows.
-- [ ] PENDING — Build fields for name, code, email, phone, address, logo, status, and plan.
-- [ ] PENDING — Add validation and all async presentation states.
-- [ ] PENDING — Verify table and form accessibility and mobile behavior.
+- [x] DONE — Build `/super-admin/schools`, `/new`, `/[id]`, and edit experience.
+- [x] DONE — Build a school table with School, Code, Campus, Students, Plan, Status, Created, and Actions.
+- [x] DONE — Add search, filters, sorting, pagination, and status filtering.
+- [x] DONE — Add view, create, edit, and delete/confirmation flows.
+- [x] DONE — Build fields for name, code, email, phone, address, logo, status, and plan.
+- [x] DONE — Add validation and all async presentation states.
+- [x] DONE — Verify table and form accessibility and mobile behavior.
 
 Acceptance criteria: every CRUD path works against the mock boundary, destructive actions require confirmation, and table state remains predictable.
 
@@ -463,3 +464,15 @@ Add one entry for every work session. Keep entries brief but specific.
 - Blocked: None.
 - Decisions: Keep the route page thin and load the overview through `SuperAdminDashboardService`; retain request state locally until real API integration makes RTK Query caching and invalidation useful.
 - Next starting point: On `Day 7`, define the school-management model/service boundary, then build the searchable and filterable school list before the CRUD forms.
+
+### 2026-09-04 — Day 7
+
+- Requested: Complete Day 7.
+- Continued first: Reviewed Days 1–6 and the Carry-over Queue; no unfinished or missed work required reconciliation.
+- Completed: Added the school directory plus create, detail, and edit routes; the required eight-column table; search, plan/status filters, sorting, pagination, and filter reset; validated reusable create/edit forms; persisted mock create/read/update/delete operations; school profiles; guarded deletion from list and detail views; success feedback; and loading, empty, error, submitting, and disabled states.
+- Files changed: `src/app/super-admin/schools`, `src/features/schools`, `src/mocks/schools.ts`, shared empty-state support, route constants, tests, and `PLAN.md`.
+- Verification: Thirty-seven tests across fourteen files passed. Type checking, linting, formatting, `git diff --check`, and the standard Next.js production build passed with all four school routes present. Browser QA covered search/filter behavior, detail navigation, edit persistence, invalid-form feedback, successful creation, confirmed deletion, compact 600px layout, internal table scrolling, and a clean console with no page-level horizontal overflow.
+- Pending: None for Day 7.
+- Blocked: None.
+- Decisions: Use one stateful mock `SchoolService` singleton so CRUD changes survive client navigation while keeping screens independent of the eventual NestJS transport. Treat list query state as local view state until backend integration introduces shared caching requirements.
+- Next starting point: On `Day 8`, model the three subscription tiers and their billing/usage records before composing subscription and user-management views.

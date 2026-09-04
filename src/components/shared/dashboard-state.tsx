@@ -13,9 +13,11 @@ import {
 export function DashboardEmptyState({
   title = 'Nothing to show yet',
   description = 'Data will appear here when it becomes available.',
+  action,
 }: {
   title?: string;
   description?: string;
+  action?: React.ReactNode;
 }) {
   return (
     <Empty className="min-h-52 border border-border">
@@ -26,6 +28,7 @@ export function DashboardEmptyState({
         <EmptyTitle>{title}</EmptyTitle>
         <EmptyDescription>{description}</EmptyDescription>
       </EmptyHeader>
+      {action ? <EmptyContent>{action}</EmptyContent> : null}
     </Empty>
   );
 }

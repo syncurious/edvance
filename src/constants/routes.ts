@@ -7,6 +7,8 @@ export const ROUTES = {
   resetPassword: '/reset-password',
   superAdmin: {
     dashboard: '/super-admin/dashboard',
+    schools: '/super-admin/schools',
+    newSchool: '/super-admin/schools/new',
   },
   schoolAdmin: {
     dashboard: '/school-admin/dashboard',
