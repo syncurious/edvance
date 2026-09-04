@@ -1,6 +1,7 @@
 export const ROUTES = {
   home: '/',
   designSystem: '/design-system',
+  dashboardFoundation: '/design-system/dashboard-foundation',
   login: '/login',
   forgotPassword: '/forgot-password',
   resetPassword: '/reset-password',

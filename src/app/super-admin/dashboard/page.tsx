@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 
-import { DashboardPreview } from '@/components/shared/dashboard-preview';
+import { SuperAdminDashboard } from '@/features/dashboard/components/super-admin-dashboard';
 
 export const metadata: Metadata = {
-  title: 'Super Admin',
+  title: 'Super Admin Dashboard',
 };
 
 export default function SuperAdminDashboardPage() {
-  return <DashboardPreview adminRole="super-admin" />;
+  return <SuperAdminDashboard />;
 }
