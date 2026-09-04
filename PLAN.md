@@ -33,12 +33,12 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 ## Current state
 
-- Current requested day: Day 2
-- Last fully completed day: Day 2
-- Active task: None
-- Overall status: DAY 2 COMPLETE
-- Last updated: 2026-09-03
-- Next action: Start Day 3 admin shell and layout
+- Current requested day: Day 4
+- Last fully completed day: Day 4
+- Active task: Day 4 complete; awaiting the next requested day
+- Overall status: COMPLETE THROUGH DAY 4
+- Last updated: 2026-09-04
+- Next action: When requested, begin Day 5 dashboard primitives and typed datasets
 
 ## Carry-over Queue
 
@@ -156,17 +156,17 @@ Acceptance criteria: common UI can be assembled without one-off styling, all req
 
 Goal: deliver a reusable admin layout for both admin roles.
 
-- [ ] PENDING — Create reusable `AdminLayout`/shell primitives.
-- [ ] PENDING — Build expanded and collapsed desktop sidebar states.
-- [ ] PENDING — Build a mobile sidebar drawer.
-- [ ] PENDING — Support active routes and nested navigation.
-- [ ] PENDING — Build the header with search, notifications, profile menu, and school selector.
-- [ ] PENDING — Add breadcrumbs and a consistent page-content container.
-- [ ] PENDING — Add theme toggle only if the chosen design system supports both themes cleanly.
-- [ ] PENDING — Define navigation configurations for Super Admin and School Admin.
-- [ ] PENDING — Verify keyboard navigation, focus management, and drawer dismissal.
-- [ ] PENDING — Verify desktop, laptop, tablet, and mobile layouts.
-- [ ] PENDING — Run lint, type checking, tests, and build.
+- [x] DONE — Create reusable `AdminLayout`/shell primitives.
+- [x] DONE — Build expanded and collapsed desktop sidebar states.
+- [x] DONE — Build a mobile sidebar drawer.
+- [x] DONE — Support active routes and nested navigation.
+- [x] DONE — Build the header with search, notifications, profile menu, and school selector.
+- [x] DONE — Add breadcrumbs and a consistent page-content container.
+- [x] DONE — Add theme toggle only if the chosen design system supports both themes cleanly.
+- [x] DONE — Define navigation configurations for Super Admin and School Admin.
+- [x] DONE — Verify keyboard navigation, focus management, and drawer dismissal.
+- [x] DONE — Verify desktop, laptop, tablet, and mobile layouts.
+- [x] DONE — Run lint, type checking, tests, and build.
 
 Acceptance criteria: both role areas use the same shell primitives, navigation state follows the route, and the layout works without clipping or inaccessible controls across supported sizes.
 
@@ -174,13 +174,13 @@ Acceptance criteria: both role areas use the same shell primitives, navigation s
 
 Goal: create backend-ready authentication flows without embedding auth logic in pages.
 
-- [ ] PENDING — Build `/login`, `/forgot-password`, and `/reset-password` screens.
-- [ ] PENDING — Add validated email, password, remember-me, and reset forms.
-- [ ] PENDING — Handle loading, validation, API error, and success states.
-- [ ] PENDING — Create auth slice, selectors, and typed auth models.
-- [ ] PENDING — Add mock auth service through the shared API boundary.
-- [ ] PENDING — Add protected-route and role-routing structure.
-- [ ] PENDING — Verify keyboard, mobile, and failure flows.
+- [x] DONE — Build `/login`, `/forgot-password`, and `/reset-password` screens.
+- [x] DONE — Add validated email, password, remember-me, and reset forms.
+- [x] DONE — Handle loading, validation, API error, and success states.
+- [x] DONE — Create auth slice, selectors, and typed auth models.
+- [x] DONE — Add mock auth service through the shared API boundary.
+- [x] DONE — Add protected-route and role-routing structure.
+- [x] DONE — Verify keyboard, mobile, and failure flows.
 
 Acceptance criteria: mock login flows into the appropriate role area, invalid and failed submissions are clear, and swapping the mock service for the backend will not require rewriting screens.
 
@@ -413,3 +413,27 @@ Add one entry for every work session. Keep entries brief but specific.
 - Blocked: None.
 - Decisions: Keep standard Next.js. Use Webpack for production builds in this restricted environment because Turbopack's CSS worker attempts to bind an internal port; development remains `next dev`.
 - Next starting point: Begin Day 3 with shared admin-shell primitives and role-specific navigation configuration.
+
+### 2026-09-04 — Day 3
+
+- Requested: Continue the previously requested Day 3 work before starting Day 4.
+- Continued first: Completed and verified the in-progress role-aware admin shell rather than skipping ahead.
+- Completed: Added shared admin layout, header, sidebar, breadcrumbs, page header, role-specific navigation, responsive mobile drawer, collapsed desktop mode, active nested routes, theme toggle, route-ready placeholders, and dashboard previews for both roles. Corrected breadcrumb label precedence and kept icon-bearing navigation configuration on the client side for production-safe rendering.
+- Files changed: `src/components/layout`, `src/components/shared`, `src/constants/navigation.ts`, `src/lib/navigation.ts`, `src/types/navigation.ts`, role layouts and routes, tests, and `PLAN.md`.
+- Verification: Eight tests passed. Type checking, linting, formatting, and the Next.js production build passed. HTTP smoke checks returned 200 for dashboard and nested placeholder routes. Browser checks covered 1440×900, 1024×768, 768×1024, and 390×844 with no horizontal overflow; sidebar collapse/expand, responsive breakpoint behavior, mobile drawer opening, and Escape dismissal were verified.
+- Pending: None for Day 3.
+- Blocked: None.
+- Decisions: Select role navigation configuration inside the client shell so icon components never cross the React server/client serialization boundary.
+- Next starting point: Build Day 4 auth types, Redux state, mock service boundary, validated forms, and role guards.
+
+### 2026-09-04 — Day 4
+
+- Requested: Complete Day 4 while continuing any unfinished earlier work first.
+- Continued first: Finished Day 3 verification, corrected the React server/client navigation-config boundary, added navigation tests, and recorded Day 3 as complete before beginning authentication.
+- Completed: Built responsive sign-in, forgot-password, and reset-password screens; Zod/React Hook Form validation; loading, field error, API error, reset-link error, and success states; typed auth models; Redux slice and selectors; persistent/session storage hydration; a swappable `AuthService` backed by role-specific demo accounts; anonymous and wrong-role guards; safe return paths; and working sign-out. Browser QA also exposed and resolved Base UI dropdown grouping and link-button semantic warnings.
+- Files changed: Auth routes and `src/features/auth`, auth Redux state/provider, role layouts, admin header, shared dropdown usage, route constants, package dependencies, tests, and `PLAN.md`.
+- Verification: Eighteen tests across eight files passed. Type checking, linting, formatting, `git diff --check`, and the standard Next.js production build passed. The dependency audit reports zero vulnerabilities. Browser checks verified protected redirects, field validation, failed login, recovery success, reset failure/success, keyboard submission, remembered sessions, both role destinations, wrong-role rerouting, profile/notification menus, and 390×844 plus 1440×900 layouts with no horizontal overflow.
+- Pending: None for Day 4.
+- Blocked: None.
+- Decisions: Frontend guards provide the current mock-session experience; the NestJS backend must still enforce authorization. The route UI depends only on the `AuthService` interface so the mock can be replaced without rewriting screens.
+- Next starting point: On `Day 5`, build reusable stat, chart, activity, table, quick-action, and progress primitives with typed datasets and complete presentation states.

@@ -1,18 +1,29 @@
 import type { Metadata } from 'next';
 
-import { RoutePlaceholder } from '@/components/shared/route-placeholder';
+import { AuthPage } from '@/features/auth/components/auth-page';
+import { LoginForm } from '@/features/auth/components/login-form';
 
 export const metadata: Metadata = {
-  title: 'Login',
+  title: 'Sign in',
+  description: 'Sign in to your Edvance administration workspace.',
 };
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string | string[] }>;
+}) {
+  const parameters = await searchParams;
+  const nextPath =
+    typeof parameters.next === 'string' ? parameters.next : undefined;
+
   return (
-    <RoutePlaceholder
-      eyebrow="Authentication route"
-      title="A secure welcome starts here."
-      description="The route boundary is ready. Form validation, request states, and role-aware access are intentionally scheduled for the authentication build."
-      plannedFor="Day 4"
-    />
+    <AuthPage
+      eyebrow="Welcome back"
+      title="Sign in to Edvance"
+      description="Use your administrator account to continue to your role-specific workspace."
+    >
+      <LoginForm nextPath={nextPath} />
+    </AuthPage>
   );
 }

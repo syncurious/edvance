@@ -39,6 +39,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -302,13 +303,15 @@ export function DesignSystemShowcase() {
                   <span className="sr-only">Open student actions</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Student actions</DropdownMenuLabel>
-                  <DropdownMenuItem>Edit profile</DropdownMenuItem>
-                  <DropdownMenuItem>View attendance</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
-                    Archive student
-                  </DropdownMenuItem>
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>Student actions</DropdownMenuLabel>
+                    <DropdownMenuItem>Edit profile</DropdownMenuItem>
+                    <DropdownMenuItem>View attendance</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem variant="destructive">
+                      Archive student
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
             </CardAction>
