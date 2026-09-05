@@ -27,16 +27,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { WorkspaceSelector } from '@/components/shared/workspace-selector';
 import { clearAuthSession } from '@/features/auth/auth-storage';
-import { useAppDispatch } from '@/store/hooks';
+import type { CampusId } from '@/features/dashboard/types';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { authSignedOut } from '@/store/slices/auth-slice';
+import {
+  campusSelected,
+  selectSelectedCampusId,
+} from '@/store/slices/workspace-slice';
 import type { AdminShellConfig } from '@/types/navigation';
 
 interface AdminHeaderProps {
@@ -68,6 +67,12 @@ function ThemeToggle() {
 export function AdminHeader({ config, onOpenNavigation }: AdminHeaderProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const selectedCampusId = useAppSelector(selectSelectedCampusId);
+  const [selectedSchoolId, setSelectedSchoolId] = useState(
+    config.schools[0]?.value ?? '',
+  );
+  const workspaceValue =
+    config.role === 'school-admin' ? selectedCampusId : selectedSchoolId;
 
   function signOut() {
     clearAuthSession();
@@ -106,21 +111,20 @@ export function AdminHeader({ config, onOpenNavigation }: AdminHeaderProps) {
 
       <div className="ml-auto flex items-center gap-1 sm:gap-2">
         <div className="hidden sm:block">
-          <label htmlFor="workspace-selector" className="sr-only">
-            Select {config.role === 'super-admin' ? 'school' : 'campus'}
-          </label>
-          <Select key={config.role} defaultValue={config.schools[0]?.value}>
-            <SelectTrigger id="workspace-selector" className="w-36 lg:w-44">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {config.schools.map((school) => (
-                <SelectItem key={school.value} value={school.value}>
-                  {school.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <WorkspaceSelector
+            id="workspace-selector"
+            label={`Select ${config.role === 'super-admin' ? 'school' : 'campus'}`}
+            value={workspaceValue}
+            options={config.schools}
+            onValueChange={(value) => {
+              if (config.role === 'school-admin') {
+                dispatch(campusSelected(value as CampusId));
+              } else {
+                setSelectedSchoolId(value);
+              }
+            }}
+            className="w-36 lg:w-44"
+          />
         </div>
 
         <ThemeToggle />

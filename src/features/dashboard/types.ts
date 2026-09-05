@@ -100,3 +100,48 @@ export interface SuperAdminDashboardData {
   recentActivity: DashboardActivity[];
   progress: DashboardProgressItem[];
 }
+
+export type CampusId = 'all' | 'north' | 'central' | 'south';
+
+export interface CampusOption {
+  id: CampusId;
+  name: string;
+}
+
+export type SchoolAdminMetricId =
+  | 'students'
+  | 'teachers'
+  | 'attendance'
+  | 'fees-collected';
+
+export interface SchoolAdminMetric {
+  id: SchoolAdminMetricId;
+  label: string;
+  value: string;
+  trendValue: string;
+  trendLabel: string;
+  trendDirection: 'up' | 'down' | 'flat';
+  positive?: boolean;
+}
+
+export interface UpcomingEvent {
+  id: string;
+  day: string;
+  month: string;
+  title: string;
+  detail: string;
+  time: string;
+}
+
+export interface SchoolAdminDashboardData {
+  schoolName: string;
+  campusId: CampusId;
+  campusName: string;
+  updatedAt: string;
+  metrics: SchoolAdminMetric[];
+  attendance: AttendanceDataPoint[];
+  feeCollection: RevenueDataPoint[];
+  studentGrowth: StudentGrowthDataPoint[];
+  upcomingEvents: UpcomingEvent[];
+  recentActivity: DashboardActivity[];
+}

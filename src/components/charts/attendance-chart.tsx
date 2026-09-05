@@ -15,7 +15,7 @@ const chartConfig = {
 export function AttendanceChart({ data }: { data: AttendanceDataPoint[] }) {
   const total = data.reduce((sum, item) => sum + item.value, 0);
   const present = data.find((item) => item.status === 'present')?.value ?? 0;
-  const attendanceRate = total ? Math.round((present / total) * 100) : 0;
+  const attendanceRate = total ? Math.round((present / total) * 1000) / 10 : 0;
 
   return (
     <div>

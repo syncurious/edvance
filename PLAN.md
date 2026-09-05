@@ -33,12 +33,12 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 ## Current state
 
-- Current requested day: Day 8
-- Last fully completed day: Day 8
-- Active task: Day 8 complete; awaiting the next requested day
-- Overall status: COMPLETE THROUGH DAY 8
+- Current requested day: Day 10
+- Last fully completed day: Day 9
+- Active task: Student directory, profiles, and validated forms
+- Overall status: IN PROGRESS
 - Last updated: 2026-09-05
-- Next action: On Day 9, build the School Admin dashboard and campus-selection state
+- Next action: Define the student model and service contract, then build the searchable directory
 
 ## Carry-over Queue
 
@@ -68,6 +68,7 @@ Complete this queue before new work for the requested day, except for blocked it
 | 2026-09-04 | Load the Super Admin overview through a feature service and keep request state local.     | The current mock must be replaceable without rewriting the page.            | A NestJS implementation can replace the mock behind the same interface; RTK Query remains reserved for API integration.    |
 | 2026-09-05 | Keep school list queries and CRUD mutations behind one `SchoolService` interface.         | List, detail, and form routes need one consistent source of data.           | Mock mutations persist across client navigation; a NestJS service can replace them without changing screen components.     |
 | 2026-09-05 | Route browser API calls through same-origin Next.js `/api` handlers.                      | Keep the NestJS origin and server credentials out of client bundles.        | Feature clients call relative `/api/...` paths; only server-side route handlers read the backend URL and forward requests. |
+| 2026-09-05 | Store the active school and campus in a dedicated Redux workspace slice.                  | The header and school modules must share one selection consistently.        | Campus changes reload scoped feature data without coupling the dashboard to shell-local state.                             |
 
 ## Definition of done for every task
 
@@ -246,11 +247,11 @@ Acceptance criteria: admins can understand plans and usage and can find/manage u
 
 Goal: create a school-focused dashboard distinct from the Super Admin experience.
 
-- [ ] PENDING — Show Students, Teachers, Attendance, and Fees Collected metrics.
-- [ ] PENDING — Add Today's Attendance, Fee Collection, Student Growth, Upcoming Events, and Recent Activity.
-- [ ] PENDING — Build reusable school/campus selector supporting multiple campuses.
-- [ ] PENDING — Ensure selected school/campus uses appropriate shared state.
-- [ ] PENDING — Add loading, empty, error, and responsive states.
+- [x] DONE — Show Students, Teachers, Attendance, and Fees Collected metrics.
+- [x] DONE — Add Today's Attendance, Fee Collection, Student Growth, Upcoming Events, and Recent Activity.
+- [x] DONE — Build reusable school/campus selector supporting multiple campuses.
+- [x] DONE — Ensure selected school/campus uses appropriate shared state.
+- [x] DONE — Add loading, empty, error, and responsive states.
 
 Acceptance criteria: the dashboard reflects the selected school/campus and shares primitives without looking like a copy of the Super Admin dashboard.
 
@@ -258,7 +259,7 @@ Acceptance criteria: the dashboard reflects the selected school/campus and share
 
 Goal: deliver scalable student search, creation, editing, and profile UX.
 
-- [ ] PENDING — Build student list, new, detail, and edit routes.
+- [-] IN PROGRESS — Build student list, new, detail, and edit routes.
 - [ ] PENDING — Build table columns for photo, ID, name, class, section, parent, phone, status, and actions.
 - [ ] PENDING — Add search, filters, sorting, pagination, and relevant states.
 - [ ] PENDING — Build profile tabs: Overview, Parents, Academic, Attendance, Fees, Exams, and Documents.
@@ -491,3 +492,15 @@ Add one entry for every work session. Keep entries brief but specific.
 - Blocked: None.
 - Decisions: Browser feature clients call only relative `/api/...` URLs. Next.js route handlers read a server-only backend URL and proxy requests to NestJS; the URL must never use a `NEXT_PUBLIC_` variable. This reduces backend-origin exposure but does not replace NestJS authentication, authorization, validation, or tenant isolation.
 - Next starting point: On `Day 9`, build the School Admin dashboard metrics and modules, then add reusable school/campus selection backed by appropriate shared state.
+
+### 2026-09-05 — Day 9
+
+- Requested: Complete Day 9.
+- Continued first: Reviewed Days 1–8 and the Carry-over Queue; no unfinished or missed work required reconciliation.
+- Completed: Replaced the School Admin preview with a campus-aware dashboard; added Students, Teachers, Attendance, and Fees Collected metrics; today's attendance distribution; monthly fee collection against target; student growth; upcoming events; recent activity; campus-specific typed mock datasets; and a replaceable service contract. Added a reusable controlled workspace selector and dedicated Redux workspace slice so the header and dashboard share the selected school/campus context.
+- Files changed: School Admin dashboard route, dashboard types/components/services and mocks, shared workspace selector, admin header and navigation configuration, Redux store and workspace slice, attendance chart precision, tests, and `PLAN.md`.
+- Verification: Fifty-six tests across twenty-two files passed. Type checking, linting, formatting, `git diff --check`, and the standard Next.js production build passed. Browser QA verified the live all-campus-to-Central Campus transition, matching scoped metrics/charts/events/activity, accessible figures and selector, the compact 600px layout without page-level horizontal overflow, and a console free of errors.
+- Pending: None for Day 9.
+- Blocked: None.
+- Decisions: Keep school and campus selection in a domain-specific Redux slice because it is consumed by both the shared shell and feature routes. Keep dashboard request state local and retrieve campus-scoped payloads through the service contract; future NestJS integration will implement the contract through the same-origin Next.js `/api` boundary.
+- Next starting point: On `Day 10`, define the student model and service contract, then build the searchable/filterable student directory before profile tabs and validated create/edit flows.

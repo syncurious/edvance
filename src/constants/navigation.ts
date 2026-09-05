@@ -101,6 +101,7 @@ export const schoolAdminConfig: AdminShellConfig = {
     initials: 'SM',
   },
   schools: [
+    { label: 'All campuses', value: 'all' },
     { label: 'North Campus', value: 'north' },
     { label: 'Central Campus', value: 'central' },
     { label: 'South Campus', value: 'south' },

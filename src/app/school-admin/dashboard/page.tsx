@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 
-import { DashboardPreview } from '@/components/shared/dashboard-preview';
+import { SchoolAdminDashboard } from '@/features/dashboard/components/school-admin-dashboard';
 
 export const metadata: Metadata = {
-  title: 'School Admin',
+  title: 'School Dashboard',
 };
 
 export default function SchoolAdminDashboardPage() {
-  return <DashboardPreview adminRole="school-admin" />;
+  return <SchoolAdminDashboard />;
 }
