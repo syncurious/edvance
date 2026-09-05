@@ -30,19 +30,25 @@ npm run build
 
 - `/login` — authentication entry
 - `/super-admin/dashboard` — platform administration
+- `/super-admin/schools` — school management
+- `/super-admin/subscriptions` — plans and subscriptions
+- `/super-admin/billing` — billing overview
+- `/super-admin/subscriptions/usage` — platform usage
+- `/super-admin/users` — platform user management
 - `/school-admin/dashboard` — school administration
 
 ## Architecture
 
 - `src/app` contains route entry points.
+- `src/app/api` contains same-origin route handlers that proxy backend requests.
 - `src/components` contains reusable UI, layout, and shared components.
 - `src/features` owns domain models and behavior.
 - `src/store` contains Redux Toolkit setup and typed hooks.
-- `src/lib/api` contains the transport-level API client.
+- `src/lib/api` contains the browser transport client, which defaults to relative `/api` URLs.
 - `src/mocks` provides typed development data behind feature service interfaces.
 - `PLAN.md` is the delivery tracker and work log.
 
-The current `systemService` uses mock data. When the NestJS backend is ready, replace the service export with an HTTP implementation; route components should not need to change.
+Feature services currently use typed mock data. During NestJS integration, browser clients must call only relative `/api/...` endpoints. Next.js route handlers read the NestJS base URL from a server-only environment variable such as `BACKEND_API_URL` and forward the request. Never expose that URL through a `NEXT_PUBLIC_` variable. NestJS remains responsible for authentication, authorization, validation, and tenant isolation.
 
 ## Delivery plan
 
