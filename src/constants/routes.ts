@@ -16,5 +16,7 @@ export const ROUTES = {
   },
   schoolAdmin: {
     dashboard: '/school-admin/dashboard',
+    students: '/school-admin/students',
+    newStudent: '/school-admin/students/new',
   },
 } as const;
