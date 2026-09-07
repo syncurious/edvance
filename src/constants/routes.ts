@@ -18,5 +18,10 @@ export const ROUTES = {
     dashboard: '/school-admin/dashboard',
     students: '/school-admin/students',
     newStudent: '/school-admin/students/new',
+    teachers: '/school-admin/teachers',
+    newTeacher: '/school-admin/teachers/new',
+    classes: '/school-admin/classes',
+    attendance: '/school-admin/attendance',
+    attendanceReports: '/school-admin/attendance/reports',
   },
 } as const;

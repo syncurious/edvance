@@ -53,8 +53,7 @@ describe('StudentFormPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Keep editing' }));
     expect(push).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
-    expect(await screen.findByText('Discard unsaved changes?')).toBeVisible();
-    expect(push).not.toHaveBeenCalled();
+    const beforeUnload = new Event('beforeunload', { cancelable: true });
+    expect(window.dispatchEvent(beforeUnload)).toBe(false);
   });
 });

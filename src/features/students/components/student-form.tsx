@@ -1,8 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AlertCircle, ArrowLeft, Save, TriangleAlert } from 'lucide-react';
-import Link from 'next/link';
+import { AlertCircle, Save, TriangleAlert } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -668,23 +667,6 @@ export function StudentFormPage({
           editing
             ? 'Update the learner’s enrollment, personal, and guardian information.'
             : 'Create a complete learner record for the selected school workspace.'
-        }
-        actions={
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={
-              <Link
-                href={
-                  student
-                    ? `/school-admin/students/${student.id}`
-                    : '/school-admin/students'
-                }
-              />
-            }
-          >
-            <ArrowLeft /> Back
-          </Button>
         }
       />
       {state === 'loading' ? (
