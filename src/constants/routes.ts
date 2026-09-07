@@ -21,5 +21,7 @@ export const ROUTES = {
     teachers: '/school-admin/teachers',
     newTeacher: '/school-admin/teachers/new',
     classes: '/school-admin/classes',
+    attendance: '/school-admin/attendance',
+    attendanceReports: '/school-admin/attendance/reports',
   },
 } as const;

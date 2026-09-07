@@ -33,12 +33,12 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 ## Current state
 
-- Current requested day: Day 11
+- Current requested day: Day 12
 - Last fully completed day: Day 11
-- Active task: Day 11 complete; ready for attendance workflows
-- Overall status: DAY 11 COMPLETE
+- Active task: Daily attendance entry, safeguards, and reports
+- Overall status: IN PROGRESS
 - Last updated: 2026-09-07
-- Next action: On Day 12, build class/date selection and the fast attendance-entry grid
+- Next action: Define the attendance sheet/report contracts and realistic class roster
 
 ## Carry-over Queue
 
@@ -287,7 +287,7 @@ Acceptance criteria: teachers can be managed and assigned, and users can browse 
 
 Goal: make daily attendance entry fast and dependable.
 
-- [ ] PENDING — Build class and date selection.
+- [-] IN PROGRESS — Build class and date selection.
 - [ ] PENDING — Build per-student Present, Absent, Late, and Leave controls.
 - [ ] PENDING — Add Mark All Present, Mark All Absent, and Save Attendance actions.
 - [ ] PENDING — Prevent accidental loss of unsaved attendance.
