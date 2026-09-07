@@ -19,6 +19,7 @@ Open the local URL printed by the development server.
 ## Quality checks
 
 ```bash
+
 npm run lint
 npm run typecheck
 npm run test
