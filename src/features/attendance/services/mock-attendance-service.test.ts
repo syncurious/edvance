@@ -1,14 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { MockAttendanceService } from '@/features/attendance/services';
+import type { AttendanceReportView } from '@/features/attendance/types';
 import { classMocks } from '@/mocks/classes';
 
 describe('MockAttendanceService', () => {
   it('builds a realistic roster that matches class enrollment', async () => {
     const service = new MockAttendanceService(0);
     const sheet = await service.getSheet('grade-6-a-north', '2026-09-07');
-    expect(sheet.records).toHaveLength(
-      classMocks.find((item) => item.id === 'grade-6-a-north')?.studentCount,
+    const classSection = classMocks.find(
+      (item) => item.id === 'grade-6-a-north',
     );
+    if (!classSection) throw new Error('Expected Grade 6-A mock class');
+    expect(sheet.records).toHaveLength(classSection.studentCount);
     expect(new Set(sheet.records.map((record) => record.student.id)).size).toBe(
       sheet.records.length,
     );
@@ -41,7 +44,7 @@ describe('MockAttendanceService', () => {
     const reports = await Promise.all(
       ['daily', 'weekly', 'monthly', 'student', 'class'].map((view) =>
         service.getReport({
-          view: view as 'daily',
+          view: view as AttendanceReportView,
           classSectionId: 'grade-5-a-north',
           date: '2026-09-07',
         }),

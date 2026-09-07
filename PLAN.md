@@ -34,11 +34,11 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 ## Current state
 
 - Current requested day: Day 12
-- Last fully completed day: Day 11
-- Active task: Daily attendance entry, safeguards, and reports
-- Overall status: IN PROGRESS
+- Last fully completed day: Day 12
+- Active task: Day 12 complete; ready for fees
+- Overall status: DAY 12 COMPLETE
 - Last updated: 2026-09-07
-- Next action: Define the attendance sheet/report contracts and realistic class roster
+- Next action: Start Day 13 by defining fee, invoice, and payment contracts
 
 ## Carry-over Queue
 
@@ -71,6 +71,7 @@ Complete this queue before new work for the requested day, except for blocked it
 | 2026-09-05 | Store the active school and campus in a dedicated Redux workspace slice.                  | The header and school modules must share one selection consistently.         | Campus changes reload scoped feature data without coupling the dashboard to shell-local state.                                  |
 | 2026-09-07 | Keep student CRUD behind one stateful, campus-aware `StudentService` contract.            | List, profile, and form routes need one replaceable and consistent boundary. | Mock mutations survive client navigation; future clients can use relative Next.js `/api/students` routes without page rewrites. |
 | 2026-09-07 | Model teacher assignments as explicit class-section and subject pairs.                    | A subject list alone cannot describe teaching ownership for each section.    | Teacher forms, profiles, and future API payloads preserve an unambiguous academic assignment.                                   |
+| 2026-09-07 | Keep attendance sheets behind a class-and-date keyed `AttendanceService` contract.        | Entry and reports must share saved state without coupling screens to mocks.  | A future client can use relative Next.js `/api/attendance` routes while retaining loss prevention and report consistency.       |
 
 ## Definition of done for every task
 
@@ -287,13 +288,13 @@ Acceptance criteria: teachers can be managed and assigned, and users can browse 
 
 Goal: make daily attendance entry fast and dependable.
 
-- [-] IN PROGRESS — Build class and date selection.
-- [ ] PENDING — Build per-student Present, Absent, Late, and Leave controls.
-- [ ] PENDING — Add Mark All Present, Mark All Absent, and Save Attendance actions.
-- [ ] PENDING — Prevent accidental loss of unsaved attendance.
-- [ ] PENDING — Build Daily, Weekly, Monthly, Student, and Class report views.
-- [ ] PENDING — Add clear visual indicators that do not rely on color alone.
-- [ ] PENDING — Verify speed and usability with a realistically large class list.
+- [x] DONE — Build class and date selection.
+- [x] DONE — Build per-student Present, Absent, Late, and Leave controls.
+- [x] DONE — Add Mark All Present, Mark All Absent, and Save Attendance actions.
+- [x] DONE — Prevent accidental loss of unsaved attendance.
+- [x] DONE — Build Daily, Weekly, Monthly, Student, and Class report views.
+- [x] DONE — Add clear visual indicators that do not rely on color alone.
+- [x] DONE — Verify speed and usability with a realistically large class list.
 
 Acceptance criteria: an operator can mark and correct a whole class efficiently, save state is unmistakable, and reports use a reusable filter-to-summary pattern.
 
@@ -530,3 +531,15 @@ Add one entry for every work session. Keep entries brief but specific.
 - Blocked: None.
 - Decisions: Represent each teaching assignment as a class-section/subject pair so UI state and future API payloads remain explicit. Keep teacher and class data behind feature contracts ready for relative Next.js `/api` clients.
 - Next starting point: On `Day 12`, compose class/date selection with a large, keyboard-friendly attendance grid before reports.
+
+### 2026-09-07 — Day 12
+
+- Requested: Complete Day 12 while continuing any unfinished earlier work first.
+- Continued first: Reviewed Day 11 and the Carry-over Queue; Day 11 was fully verified and no carry-over work remained.
+- Completed: Added campus-aware class/date attendance entry; a realistic 23–31 student roster; accessible Present, Absent, Late, and Leave controls; bulk actions; notes; unmistakable dirty, saving, saved, success, and error states; same-window, selection-change, and browser-exit loss protection; and Daily, Weekly, Monthly, Student, and Class report views sharing filters, summaries, and responsive tables. Saved daily sheets also feed the matching report through the same service state.
+- Files changed: `src/app/school-admin/attendance`, `src/features/attendance`, `src/mocks/attendance.ts`, route constants, tests, and `PLAN.md`.
+- Verification: Eight focused attendance tests passed, followed by the complete 82-test suite across 33 files. Type checking, linting, formatting, `git diff --check`, and the standard Next.js production build passed with both attendance routes among 23 generated pages. Browser QA covered a 28-student class, individual and bulk corrections, dirty-navigation confirmation, save feedback, all five report views, a clean console, desktop rendering, and 390×844 responsive behavior without page-level horizontal overflow; wide controls and tables scroll internally.
+- Pending: None for Day 12.
+- Blocked: None.
+- Decisions: Key sheets by class and date behind `AttendanceService`, keep saved entry and reports consistent, and reserve the relative Next.js `/api/attendance` boundary for NestJS integration.
+- Next starting point: On `Day 13`, define fee structures, invoices, payments, and status contracts before building the finance overview.

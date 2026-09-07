@@ -96,7 +96,9 @@ export class MockAttendanceService implements AttendanceService {
   async getReport(query: AttendanceReportQuery) {
     await this.pause();
     const classSection = this.classSection(query.classSectionId);
-    const records = makeAttendanceRecords(classSection, query.date);
+    const records =
+      this.savedSheets.get(this.key(query.classSectionId, query.date))
+        ?.records ?? makeAttendanceRecords(classSection, query.date);
     const summary = summarize(records);
     const students = records.map((record) => record.student);
     const base = { summary, students };
