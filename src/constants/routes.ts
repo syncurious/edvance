@@ -23,5 +23,10 @@ export const ROUTES = {
     classes: '/school-admin/classes',
     attendance: '/school-admin/attendance',
     attendanceReports: '/school-admin/attendance/reports',
+    fees: '/school-admin/fees',
+    feeStructures: '/school-admin/fees/structures',
+    feeInvoices: '/school-admin/fees/invoices',
+    feePayments: '/school-admin/fees/payments',
+    feeDefaulters: '/school-admin/fees/defaulters',
   },
 } as const;

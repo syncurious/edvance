@@ -1,0 +1,9 @@
+import type { Metadata } from 'next';
+
+import { PaymentsPage } from '@/features/fees/components/payments-page';
+
+export const metadata: Metadata = { title: 'Payments' };
+
+export default function FeePaymentsPage() {
+  return <PaymentsPage />;
+}

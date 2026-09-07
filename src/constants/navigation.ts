@@ -173,6 +173,7 @@ export const schoolAdminConfig: AdminShellConfig = {
             { title: 'Overview', href: '/school-admin/fees' },
             { title: 'Invoices', href: '/school-admin/fees/invoices' },
             { title: 'Payments', href: '/school-admin/fees/payments' },
+            { title: 'Defaulters', href: '/school-admin/fees/defaulters' },
           ],
         },
         {
