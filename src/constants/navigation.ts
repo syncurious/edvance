@@ -154,6 +154,10 @@ export const schoolAdminConfig: AdminShellConfig = {
           title: 'Exams',
           href: '/school-admin/exams',
           icon: BookOpenCheck,
+          children: [
+            { title: 'All exams', href: '/school-admin/exams' },
+            { title: 'Create exam', href: '/school-admin/exams/new' },
+          ],
         },
         {
           title: 'Reports',

@@ -33,12 +33,12 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 ## Current state
 
-- Current requested day: Day 13
-- Last fully completed day: Day 13
-- Active task: Day 13 complete; ready for exams and reports
-- Overall status: DAY 13 COMPLETE
+- Current requested day: Day 14
+- Last fully completed day: Day 14
+- Active task: Day 14 complete; ready for final polish and integration readiness
+- Overall status: DAY 14 COMPLETE
 - Last updated: 2026-09-07
-- Next action: Start Day 14 by defining exam, marks, grade, and report contracts
+- Next action: Start Day 15 with the cross-product state and responsive audit
 
 ## Carry-over Queue
 
@@ -73,6 +73,7 @@ Complete this queue before new work for the requested day, except for blocked it
 | 2026-09-07 | Model teacher assignments as explicit class-section and subject pairs.                    | A subject list alone cannot describe teaching ownership for each section.          | Teacher forms, profiles, and future API payloads preserve an unambiguous academic assignment.                                   |
 | 2026-09-07 | Keep attendance sheets behind a class-and-date keyed `AttendanceService` contract.        | Entry and reports must share saved state without coupling screens to mocks.        | A future client can use relative Next.js `/api/attendance` routes while retaining loss prevention and report consistency.       |
 | 2026-09-07 | Keep finance mutations in one campus-aware `FeeService` state boundary.                   | Payments must update invoices, receipts, defaulters, and overview totals together. | A future client can replace the mock through relative Next.js `/api/fees` routes without changing screens.                      |
+| 2026-09-07 | Keep exam results and shared reports behind separate feature service contracts.           | Marks are stateful assessment data, while reports derive multiple domain datasets. | Future clients can use relative `/api/exams` and `/api/reports` handlers without exposing the NestJS origin or rewriting pages. |
 
 ## Definition of done for every task
 
@@ -316,12 +317,12 @@ Acceptance criteria: invoices and payments can be reviewed and entered through m
 
 Goal: deliver exam management, results, and a reusable reporting structure.
 
-- [ ] PENDING — Build exam list, new, and detail routes.
-- [ ] PENDING — Build subject setup, marks entry, grades, and result status UI.
-- [ ] PENDING — Build student result view with totals, percentage, and grade.
-- [ ] PENDING — Build reusable `Filters → Data → Summary → Table → Export` report structure.
-- [ ] PENDING — Make export explicitly UI-only if backend/export behavior is unavailable.
-- [ ] PENDING — Add validation, loading, empty, error, and responsive states.
+- [x] DONE — Build exam list, new, and detail routes.
+- [x] DONE — Build subject setup, marks entry, grades, and result status UI.
+- [x] DONE — Build student result view with totals, percentage, and grade.
+- [x] DONE — Build reusable `Filters → Data → Summary → Table → Export` report structure.
+- [x] DONE — Make export explicitly UI-only if backend/export behavior is unavailable.
+- [x] DONE — Add validation, loading, empty, error, and responsive states.
 
 Acceptance criteria: marks and results are understandable, invalid marks are prevented, and reports share a consistent backend-ready structure.
 
@@ -556,3 +557,15 @@ Add one entry for every work session. Keep entries brief but specific.
 - Blocked: None.
 - Decisions: Keep invoices, receipts, defaulters, and metrics behind one stateful `FeeService`; future NestJS integration must replace it through relative Next.js `/api/fees` routes without exposing the backend origin.
 - Next starting point: On `Day 14`, define exams, marks, grades, result summaries, and the reusable report/export structure before building exam routes.
+
+### 2026-09-07 — Day 14
+
+- Requested: Complete Day 14 while continuing any unfinished earlier work first.
+- Continued first: Reviewed Day 13 and the Carry-over Queue; Day 13 was complete and no carry-over work remained.
+- Completed: Added campus-aware exam list, create, detail, marks-entry, class-results, and individual student-result routes; reusable exam/result status patterns; repeatable validated subject setup; large-roster marks entry with absent handling, maximum-mark validation, save feedback, and immediate grade/result recalculation; and a shared `Filters → Data → Summary → Table → Export` reporting workflow for academic, attendance, fee, and enrollment datasets. Export is clearly identified as a UI-only preview until the backend endpoint exists. Live QA exposed and resolved a fee-report grouping mismatch so table totals now reconcile with summary metrics.
+- Files changed: `src/app/school-admin/exams`, `src/app/school-admin/reports`, `src/features/exams`, `src/features/reports`, `src/mocks/exams.ts`, school-admin navigation, route constants, tests, and `PLAN.md`.
+- Verification: Fourteen focused Day 14 tests passed, followed by the complete 104-test suite across 40 files. Type checking, linting, formatting, `git diff --check`, and the standard Next.js production build passed with the exam list, create, detail, student result, and reports routes among 31 generated static pages. Browser QA covered exam listing and subject setup, invalid marks and disabled save, a successful 28-student marks save with recalculated summary, class and individual results, create-form validation and repeatable subjects, report dataset switching and export feedback, corrected fee total reconciliation, desktop rendering, and 390×844 responsive behavior without page-level horizontal overflow; wide tables scroll internally.
+- Pending: None for Day 14.
+- Blocked: None.
+- Decisions: Keep mutable exams/results behind `ExamService` and multi-domain reports behind `ReportService`; future NestJS integrations use relative Next.js `/api/exams` and `/api/reports` route handlers so the backend origin remains server-only.
+- Next starting point: On `Day 15`, begin with a cross-product audit of loading, empty, error, disabled, success, accessibility, and responsive states before consolidating shared patterns and documenting backend contracts.

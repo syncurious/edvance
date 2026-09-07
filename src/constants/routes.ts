@@ -28,5 +28,8 @@ export const ROUTES = {
     feeInvoices: '/school-admin/fees/invoices',
     feePayments: '/school-admin/fees/payments',
     feeDefaulters: '/school-admin/fees/defaulters',
+    exams: '/school-admin/exams',
+    newExam: '/school-admin/exams/new',
+    reports: '/school-admin/reports',
   },
 } as const;
