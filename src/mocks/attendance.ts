@@ -107,7 +107,7 @@ export function makeAttendanceRecords(
   classSection: ClassSection,
   date: string,
 ): AttendanceRecord[] {
-  const dateSeed = [...date].reduce(
+  const dateSeed = Array.from(date).reduce(
     (total, character) => total + character.charCodeAt(0),
     0,
   );

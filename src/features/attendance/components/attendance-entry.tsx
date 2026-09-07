@@ -505,11 +505,11 @@ export function AttendanceEntry({
                             {record.student.rollNumber}
                           </TableCell>
                           <TableCell>
-                            <div
-                              className="flex gap-1"
-                              role="group"
-                              aria-label={`Attendance for ${record.student.firstName} ${record.student.lastName}`}
-                            >
+                            <fieldset className="flex gap-1">
+                              <legend className="sr-only">
+                                Attendance for {record.student.firstName}{' '}
+                                {record.student.lastName}
+                              </legend>
                               {attendanceStatuses.map((status) => {
                                 const meta = attendanceStatusMeta[status];
                                 const Icon = meta.icon;
@@ -535,7 +535,7 @@ export function AttendanceEntry({
                                   </Button>
                                 );
                               })}
-                            </div>
+                            </fieldset>
                           </TableCell>
                           <TableCell>
                             <Input
