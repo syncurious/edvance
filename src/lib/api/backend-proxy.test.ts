@@ -23,10 +23,14 @@ describe('backend API proxy', () => {
     );
 
     expect(response.status).toBe(503);
-    await expect(response.json()).resolves.toEqual({
-      code: 'API_NOT_CONFIGURED',
-      message: 'The backend integration is not configured yet.',
-    });
+    expect(response.headers.get('x-request-id')).toBeTruthy();
+    await expect(response.json()).resolves.toEqual(
+      expect.objectContaining({
+        code: 'API_NOT_CONFIGURED',
+        message: 'The backend integration is not configured yet.',
+        requestId: expect.any(String),
+      }),
+    );
   });
 
   it('forwards method, path, query, selected headers, and body without exposing the origin', async () => {
@@ -94,9 +98,12 @@ describe('backend API proxy', () => {
       ['reports'],
     );
     expect(unavailableResponse.status).toBe(502);
-    await expect(unavailableResponse.json()).resolves.toEqual({
-      code: 'API_UNAVAILABLE',
-      message: 'The backend is currently unavailable.',
-    });
+    await expect(unavailableResponse.json()).resolves.toEqual(
+      expect.objectContaining({
+        code: 'API_UNAVAILABLE',
+        message: 'The backend is currently unavailable.',
+        requestId: expect.any(String),
+      }),
+    );
   });
 });

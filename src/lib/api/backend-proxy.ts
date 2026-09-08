@@ -22,12 +22,20 @@ const RESPONSE_HEADERS = [
 
 const API_TIMEOUT_MS = 15_000;
 
-function apiError(status: number, code: string, message: string) {
+function apiError(
+  status: number,
+  code: string,
+  message: string,
+  requestId: string,
+) {
   return Response.json(
-    { code, message },
+    { code, message, requestId },
     {
       status,
-      headers: { 'cache-control': 'no-store' },
+      headers: {
+        'cache-control': 'no-store',
+        'x-request-id': requestId,
+      },
     },
   );
 }
@@ -78,6 +86,7 @@ function responseHeaders(response: Response, requestId: string) {
 }
 
 export async function proxyToBackend(request: Request, path: string[]) {
+  const requestId = request.headers.get('x-request-id') ?? crypto.randomUUID();
   let base: URL | null;
   try {
     base = backendBaseUrl();
@@ -86,6 +95,7 @@ export async function proxyToBackend(request: Request, path: string[]) {
       500,
       'API_CONFIGURATION_ERROR',
       'The API gateway is not configured correctly.',
+      requestId,
     );
   }
 
@@ -94,11 +104,12 @@ export async function proxyToBackend(request: Request, path: string[]) {
       503,
       'API_NOT_CONFIGURED',
       'The backend integration is not configured yet.',
+      requestId,
     );
   }
 
   const headers = requestHeaders(request);
-  const requestId = headers.get('x-request-id') ?? crypto.randomUUID();
+  headers.set('x-request-id', requestId);
   const hasBody = request.method !== 'GET' && request.method !== 'HEAD';
 
   try {
@@ -124,6 +135,7 @@ export async function proxyToBackend(request: Request, path: string[]) {
       timedOut
         ? 'The backend did not respond in time.'
         : 'The backend is currently unavailable.',
+      requestId,
     );
   }
 }
