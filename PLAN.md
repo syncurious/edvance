@@ -33,12 +33,12 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 ## Current state
 
-- Current requested day: Day 14
+- Current requested day: Day 15
 - Last fully completed day: Day 14
-- Active task: Day 14 complete; ready for final polish and integration readiness
-- Overall status: DAY 14 COMPLETE
+- Active task: Cross-product polish, quality audit, and API integration readiness
+- Overall status: IN PROGRESS
 - Last updated: 2026-09-07
-- Next action: Start Day 15 with the cross-product state and responsive audit
+- Next action: Add the shared RTK Query and server-only Next.js API proxy foundation
 
 ## Carry-over Queue
 
@@ -330,7 +330,7 @@ Acceptance criteria: marks and results are understandable, invalid marks are pre
 
 Goal: make the application feel like one coherent, production-quality product.
 
-- [ ] PENDING — Audit every page for loading, skeleton, disabled, empty, error, retry, and success states.
+- [-] IN PROGRESS — Audit every page for loading, skeleton, disabled, empty, error, retry, and success states.
 - [ ] PENDING — Audit desktop, laptop, tablet, and mobile layouts.
 - [ ] PENDING — Audit keyboard use, focus, labels, semantics, and contrast.
 - [ ] PENDING — Remove accidental duplication and consolidate reusable patterns.

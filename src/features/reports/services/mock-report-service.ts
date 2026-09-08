@@ -7,15 +7,10 @@ import type {
 import { classMocks } from '@/mocks/classes';
 import { invoiceMocks } from '@/mocks/fees';
 import { studentMocks } from '@/mocks/students';
+import { formatCurrency } from '@/lib/format';
 
 const wait = (milliseconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
-const money = (value: number) =>
-  new Intl.NumberFormat('en-PK', {
-    style: 'currency',
-    currency: 'PKR',
-    maximumFractionDigits: 0,
-  }).format(value);
 
 const labels = {
   academic: 'Academic performance',
@@ -137,10 +132,18 @@ export class MockReportService implements ReportService {
         .filter((item) => item.status === 'overdue')
         .reduce((sum, item) => sum + item.balance, 0);
       metrics = [
-        { label: 'Billed', value: money(total), tone: 'neutral' },
-        { label: 'Collected', value: money(collected), tone: 'success' },
-        { label: 'Outstanding', value: money(total - collected), tone: 'info' },
-        { label: 'Overdue', value: money(overdue), tone: 'error' },
+        { label: 'Billed', value: formatCurrency(total), tone: 'neutral' },
+        {
+          label: 'Collected',
+          value: formatCurrency(collected),
+          tone: 'success',
+        },
+        {
+          label: 'Outstanding',
+          value: formatCurrency(total - collected),
+          tone: 'info',
+        },
+        { label: 'Overdue', value: formatCurrency(overdue), tone: 'error' },
       ];
       columns = ['Class', 'Invoices', 'Billed', 'Collected', 'Outstanding'];
       const invoiceClasses = [
@@ -160,9 +163,9 @@ export class MockReportService implements ReportService {
           cells: [
             className,
             String(matches.length),
-            money(billed),
-            money(paid),
-            money(billed - paid),
+            formatCurrency(billed),
+            formatCurrency(paid),
+            formatCurrency(billed - paid),
           ],
         };
       });
