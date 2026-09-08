@@ -35,6 +35,8 @@ npm run build
 - `/super-admin/billing` — billing overview
 - `/super-admin/subscriptions/usage` — platform usage
 - `/super-admin/users` — platform user management
+- `/super-admin/reports` — platform health, subscription, revenue, and usage reports
+- `/super-admin/settings` — platform identity, security, notification, and integration settings
 - `/school-admin/dashboard` — school administration
 - `/school-admin/students` — student directory and profiles
 - `/school-admin/teachers` — teacher directory and assignments
@@ -43,6 +45,7 @@ npm run build
 - `/school-admin/fees` — fee structures, invoices, payments, and defaulters
 - `/school-admin/exams` — exam setup, marks, and results
 - `/school-admin/reports` — shared school reporting workflow
+- `/school-admin/settings` — school, academic, attendance, fee, and notification settings
 
 ## Architecture
 

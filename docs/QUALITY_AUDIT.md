@@ -4,21 +4,23 @@ This is the final cross-product audit record for the 15-day frontend build. Earl
 
 ## Route and state coverage
 
-| Route family                  | Loading                         | Empty                          | Error/retry                           | Disabled/saving                  | Success                   | Responsive containment |
-| ----------------------------- | ------------------------------- | ------------------------------ | ------------------------------------- | -------------------------------- | ------------------------- | ---------------------- |
-| Authentication                | Guard/form progress             | N/A                            | Field and service errors              | Submit protection                | Login/reset outcomes      | Verified               |
-| Super Admin dashboards        | Skeletons                       | Dashboard empty state          | Shared retry state                    | Action loading where applicable  | Ready state               | Verified               |
-| Schools                       | Table/form/detail loading       | Directory empty state          | Retry and not-found/conflict handling | Submit/delete protection         | CRUD feedback             | Verified               |
-| Subscriptions, billing, usage | Skeletons                       | Shared empty state             | Shared retry state                    | Contextual actions               | Ready state               | Verified               |
-| Platform users                | Table loading                   | Filtered empty state           | Retry/mutation errors                 | Mutation protection              | Status/reset feedback     | Verified               |
-| School dashboard              | Skeletons                       | Dashboard empty state          | Shared retry state                    | N/A                              | Campus-scoped ready state | Verified               |
-| Students                      | Table/form/profile loading      | Filtered empty state           | Retry/not-found/conflict handling     | Submit protection                | Create/update feedback    | Verified               |
-| Teachers and classes          | List/form/profile loading       | Filtered/roster empty states   | Retry/not-found/conflict handling     | Submit protection                | Create/update feedback    | Verified               |
-| Attendance                    | Sheet/report loading            | Filter/report empty states     | Retry/save errors                     | Dirty/saving/saved states        | Save feedback             | Verified               |
-| Fees                          | Page/table/drawer loading       | Dataset empty states           | Retry/payment errors                  | Payment confirmation/protection  | Receipt and totals update | Verified               |
-| Exams                         | List/form/detail/result loading | Filtered list state            | Retry/not-found/save errors           | Invalid-mark and save protection | Recalculated results      | Verified               |
-| Shared reports                | Dataset loading                 | Table empty state              | Retry state                           | Export unavailable/ready state   | Export-preview feedback   | Verified               |
-| Placeholder/settings routes   | N/A                             | Intentional module placeholder | N/A                                   | Disabled unavailable actions     | N/A                       | Verified               |
+| Route family                  | Loading                         | Empty                         | Error/retry                           | Disabled/saving                  | Success                   | Responsive containment |
+| ----------------------------- | ------------------------------- | ----------------------------- | ------------------------------------- | -------------------------------- | ------------------------- | ---------------------- |
+| Authentication                | Guard/form progress             | N/A                           | Field and service errors              | Submit protection                | Login/reset outcomes      | Verified               |
+| Super Admin dashboards        | Skeletons                       | Dashboard empty state         | Shared retry state                    | Action loading where applicable  | Ready state               | Verified               |
+| Schools                       | Table/form/detail loading       | Directory empty state         | Retry and not-found/conflict handling | Submit/delete protection         | CRUD feedback             | Verified               |
+| Subscriptions, billing, usage | Skeletons                       | Shared empty state            | Shared retry state                    | Contextual actions               | Ready state               | Verified               |
+| Platform users                | Table loading                   | Filtered empty state          | Retry/mutation errors                 | Mutation protection              | Status/reset feedback     | Verified               |
+| School dashboard              | Skeletons                       | Dashboard empty state         | Shared retry state                    | N/A                              | Campus-scoped ready state | Verified               |
+| Students                      | Table/form/profile loading      | Filtered empty state          | Retry/not-found/conflict handling     | Submit protection                | Create/update feedback    | Verified               |
+| Teachers and classes          | List/form/profile loading       | Filtered/roster empty states  | Retry/not-found/conflict handling     | Submit protection                | Create/update feedback    | Verified               |
+| Attendance                    | Sheet/report loading            | Filter/report empty states    | Retry/save errors                     | Dirty/saving/saved states        | Save feedback             | Verified               |
+| Fees                          | Page/table/drawer loading       | Dataset empty states          | Retry/payment errors                  | Payment confirmation/protection  | Receipt and totals update | Verified               |
+| Exams                         | List/form/detail/result loading | Filtered list state           | Retry/not-found/save errors           | Invalid-mark and save protection | Recalculated results      | Verified               |
+| Shared reports                | Dataset loading                 | Table empty state             | Retry state                           | Export unavailable/ready state   | Export-preview feedback   | Verified               |
+| Platform reports              | Dataset loading                 | Filtered table empty state    | Shared retry state                    | Export unavailable/ready state   | Dataset switching         | Verified               |
+| Platform and school settings  | Form skeleton                   | N/A                           | Load retry/save error                 | Dirty/saving/saved states        | Save feedback             | Verified               |
+| Unknown admin routes          | N/A                             | Purpose-built not-found state | N/A                                   | Dashboard return action          | N/A                       | Verified               |
 
 Data-driven routes expose an appropriate state model. A static page is not required to manufacture loading or retry UI when it performs no asynchronous work.
 

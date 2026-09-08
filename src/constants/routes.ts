@@ -13,6 +13,8 @@ export const ROUTES = {
     subscriptionUsage: '/super-admin/subscriptions/usage',
     billing: '/super-admin/billing',
     users: '/super-admin/users',
+    reports: '/super-admin/reports',
+    settings: '/super-admin/settings',
   },
   schoolAdmin: {
     dashboard: '/school-admin/dashboard',
@@ -31,5 +33,6 @@ export const ROUTES = {
     exams: '/school-admin/exams',
     newExam: '/school-admin/exams/new',
     reports: '/school-admin/reports',
+    settings: '/school-admin/settings',
   },
 } as const;

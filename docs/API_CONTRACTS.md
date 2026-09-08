@@ -187,14 +187,27 @@ Payment recording is transactional and idempotent. The final backend request mus
 
 NestJS validates `0 ≤ marks ≤ subject.maxMarks`, treats `null` as absent, recalculates totals and grades server-side, and never trusts totals submitted by the browser.
 
-### Shared reports
+### Reports
 
-| Method | Browser path          | Request/query                   | Response                        |
-| ------ | --------------------- | ------------------------------- | ------------------------------- |
-| `GET`  | `/api/reports`        | `SchoolReportQuery`             | `SchoolReport`                  |
-| `POST` | `/api/reports/export` | `SchoolReportQuery` plus format | File or asynchronous export job |
+| Method | Browser path                   | Request/query                     | Response                        |
+| ------ | ------------------------------ | --------------------------------- | ------------------------------- |
+| `GET`  | `/api/reports`                 | `SchoolReportQuery`               | `SchoolReport`                  |
+| `POST` | `/api/reports/export`          | `SchoolReportQuery` plus format   | File or asynchronous export job |
+| `GET`  | `/api/reports/platform`        | `PlatformReportQuery`             | `PlatformReport`                |
+| `POST` | `/api/reports/platform/export` | `PlatformReportQuery` plus format | File or asynchronous export job |
 
 The export endpoint is intentionally not connected in the current UI. Before enabling it, agree on supported formats, maximum range, synchronous versus queued generation, filename/content-disposition behavior, authorization, and audit logging.
+
+### Settings
+
+| Method | Browser path             | Request            | Response           |
+| ------ | ------------------------ | ------------------ | ------------------ |
+| `GET`  | `/api/settings/platform` | —                  | `PlatformSettings` |
+| `PUT`  | `/api/settings/platform` | `PlatformSettings` | `PlatformSettings` |
+| `GET`  | `/api/settings/school`   | `schoolId`         | `SchoolSettings`   |
+| `PUT`  | `/api/settings/school`   | `SchoolSettings`   | `SchoolSettings`   |
+
+School settings must be scoped from the authenticated principal; a submitted `schoolId` is only a selector. Platform settings require Super Admin authorization. Both update endpoints should validate the full settings document and record an audit event.
 
 ## RTK Query migration
 
