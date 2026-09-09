@@ -1,10 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Building2,
+  ArrowUpRight,
+  Settings2,
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { Brand } from '@/components/shared/brand';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -42,10 +50,10 @@ function NavItem({
   const open = openOverride ?? active;
   const Icon = item.icon;
   const itemClasses = cn(
-    'group flex min-h-10 w-full items-center gap-3 rounded-lg px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
+    'group flex min-h-10 w-full items-center gap-3 rounded-lg px-3 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
     active
-      ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-sm'
-      : 'text-sidebar-foreground/72 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+      ? 'bg-sidebar-primary text-sidebar-primary-foreground font-semibold'
+      : 'text-sidebar-foreground/90 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
     collapsed && 'justify-center px-2',
   );
 
@@ -103,8 +111,8 @@ function NavItem({
                   className={cn(
                     'flex min-h-9 items-center rounded-md px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
                     childActive
-                      ? 'font-bold text-sidebar-primary'
-                      : 'text-sidebar-foreground/62 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                      ? 'font-semibold text-sidebar-primary-foreground'
+                      : 'text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                   )}
                 >
                   {child.title}
@@ -159,7 +167,7 @@ export function AdminSidebar({
       <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
         <div
           className={cn(
-            'flex min-h-18 items-center border-b border-sidebar-border px-4',
+            'flex min-h-17 items-center border-b border-sidebar-border px-4',
             collapsed ? 'justify-center' : 'justify-between',
           )}
         >
@@ -173,19 +181,7 @@ export function AdminSidebar({
             aria-label={collapsed ? 'Edvance dashboard' : undefined}
             className="flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
           >
-            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-sidebar-primary text-sm font-black text-sidebar-primary-foreground">
-              E
-            </span>
-            {!collapsed ? (
-              <span>
-                <span className="block text-sm font-black tracking-tight">
-                  Edvance
-                </span>
-                <span className="block text-[11px] text-sidebar-foreground/55">
-                  {config.roleLabel}
-                </span>
-              </span>
-            ) : null}
+            <Brand compact={collapsed} />
           </Link>
           {!mobile && !collapsed ? (
             <Button
@@ -201,14 +197,30 @@ export function AdminSidebar({
           ) : null}
         </div>
 
+        {!collapsed && (
+          <div className="mx-4 mt-5 flex items-center gap-2.5 rounded-xl border border-sidebar-border bg-sidebar-accent/60 p-3">
+            <span className="grid size-8 shrink-0 place-items-center rounded-lg border border-sidebar-border bg-sidebar">
+              <Building2 aria-hidden="true" className="size-4" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-xs font-semibold">
+                {config.workspaceLabel}
+              </p>
+              <p className="mt-0.5 text-[10px] text-sidebar-foreground/80">
+                {config.roleLabel}
+              </p>
+            </div>
+          </div>
+        )}
+
         <nav
           aria-label={`${config.roleLabel} navigation`}
           className="flex-1 overflow-y-auto px-3 py-4"
         >
           {config.navigation.map((group) => (
-            <div key={group.label} className="mb-5 last:mb-0">
+            <div key={group.label} className="mb-4 last:mb-0">
               {!collapsed ? (
-                <p className="mb-2 px-3 text-[10px] font-black uppercase tracking-[0.18em] text-sidebar-foreground/38">
+                <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-sidebar-foreground/75">
                   {group.label}
                 </p>
               ) : null}
@@ -226,6 +238,23 @@ export function AdminSidebar({
             </div>
           ))}
         </nav>
+
+        {!collapsed && (
+          <div className="border-t border-sidebar-border p-4">
+            <Link
+              href={'/' + config.role + '/settings'}
+              onClick={onNavigate}
+              className="flex items-center gap-3 rounded-lg p-2 text-xs text-sidebar-foreground hover:bg-sidebar-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+            >
+              <Settings2 aria-hidden="true" className="size-4" />
+              <span className="flex-1">Workspace preferences</span>
+              <ArrowUpRight aria-hidden="true" className="size-3.5" />
+            </Link>
+            <p className="mt-3 px-2 text-[10px] text-sidebar-foreground/75">
+              Edvance · School management
+            </p>
+          </div>
+        )}
 
         {!mobile && collapsed ? (
           <div className="border-t border-sidebar-border p-3">

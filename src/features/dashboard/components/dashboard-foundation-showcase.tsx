@@ -118,7 +118,7 @@ export function DashboardFoundationShowcase() {
       <fieldset className="rounded-2xl border border-border bg-card p-4 sm:flex sm:items-center sm:justify-between sm:gap-5">
         <legend className="sr-only">Preview component state</legend>
         <div>
-          <p className="text-sm font-black">Preview component state</p>
+          <p className="text-sm font-semibold">Preview component state</p>
           <p className="mt-1 text-xs text-muted-foreground">
             One control exercises the same state contract across the dashboard.
           </p>
@@ -145,12 +145,12 @@ export function DashboardFoundationShowcase() {
 
       <section aria-labelledby="dashboard-metrics-heading">
         <div className="mb-4">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-primary">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             Metrics
           </p>
           <h2
             id="dashboard-metrics-heading"
-            className="mt-1 text-xl font-black tracking-tight"
+            className="mt-1 text-xl font-semibold tracking-tight"
           >
             Stat cards
           </h2>

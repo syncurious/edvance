@@ -70,10 +70,10 @@ export function UpcomingEvents({
                 className="flex gap-3 rounded-xl border border-border bg-background p-3"
               >
                 <time className="grid h-14 w-12 shrink-0 place-content-center rounded-lg bg-primary/10 text-center text-primary">
-                  <span className="text-lg font-black leading-none">
+                  <span className="text-lg font-semibold leading-none">
                     {event.day}
                   </span>
-                  <span className="mt-1 text-[10px] font-black tracking-wider">
+                  <span className="mt-1 text-[10px] font-semibold tracking-wider">
                     {event.month}
                   </span>
                 </time>

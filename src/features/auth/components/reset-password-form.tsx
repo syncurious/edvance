@@ -54,7 +54,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
           <span className="grid size-11 place-items-center rounded-xl bg-success text-success-foreground">
             <BadgeCheck aria-hidden="true" />
           </span>
-          <h2 className="mt-5 text-lg font-black">Password updated</h2>
+          <h2 className="mt-5 text-lg font-semibold">Password updated</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
             {successMessage}
           </p>

@@ -162,7 +162,7 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
       </Button>
 
       <div className="rounded-xl border border-border bg-muted/45 p-4">
-        <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-muted-foreground">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           <ShieldCheck aria-hidden="true" className="size-4 text-primary" />{' '}
           Demo access
         </div>

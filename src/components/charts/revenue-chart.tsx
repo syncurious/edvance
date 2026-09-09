@@ -1,6 +1,14 @@
 'use client';
 
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { useId } from 'react';
+import {
+  Area,
+  CartesianGrid,
+  Line,
+  ComposedChart,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 import {
   ChartContainer,
@@ -22,17 +30,32 @@ function formatMillions(value: number) {
 }
 
 export function RevenueChart({ data }: { data: RevenueDataPoint[] }) {
+  const gradientId = useId().replaceAll(':', '');
   return (
     <figure aria-label="Monthly revenue compared with target">
       <figcaption className="sr-only">
         Monthly revenue compared with target
       </figcaption>
       <ChartContainer config={chartConfig} className="h-64 w-full aspect-auto">
-        <LineChart
+        <ComposedChart
           data={data}
           margin={{ left: -8, right: 12, top: 8 }}
           accessibilityLayer
         >
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="0%"
+                stopColor="var(--color-revenue)"
+                stopOpacity={0.18}
+              />
+              <stop
+                offset="100%"
+                stopColor="var(--color-revenue)"
+                stopOpacity={0.01}
+              />
+            </linearGradient>
+          </defs>
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
           <XAxis
             dataKey="month"
@@ -77,15 +100,16 @@ export function RevenueChart({ data }: { data: RevenueDataPoint[] }) {
             strokeDasharray="5 5"
             dot={false}
           />
-          <Line
+          <Area
             type="monotone"
             dataKey="revenue"
+            fill={'url(#' + gradientId + ')'}
             stroke="var(--color-revenue)"
             strokeWidth={3}
-            dot={{ r: 3, fill: 'var(--color-revenue)' }}
+            dot={false}
             activeDot={{ r: 5 }}
           />
-        </LineChart>
+        </ComposedChart>
       </ChartContainer>
     </figure>
   );

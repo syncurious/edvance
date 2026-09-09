@@ -1,114 +1,228 @@
 import {
   ArrowRight,
   Building2,
+  CalendarCheck2,
+  ChartNoAxesCombined,
+  Check,
   GraduationCap,
-  ShieldCheck,
+  Layers2,
+  WalletCards,
 } from 'lucide-react';
 import Link from 'next/link';
 
-import { PlatformStatus } from '@/components/shared/platform-status';
-import { RouteCard } from '@/components/shared/route-card';
-import { ROUTES } from '@/constants/routes';
-import { systemService } from '@/features/system/services';
+import { Brand } from '@/components/shared/brand';
+import { ProductPreview } from '@/components/shared/product-preview';
+import { Button } from '@/components/ui/button';
 
-const entryPoints = [
+const features = [
   {
-    eyebrow: 'Secure entry',
-    title: 'Authentication',
-    description:
-      'Sign in and password recovery flows will live behind one boundary.',
-    href: ROUTES.login,
-    icon: ShieldCheck,
-    action: 'Open login route',
-  },
-  {
-    eyebrow: 'Platform operations',
-    title: 'Super Admin',
-    description:
-      'Manage schools, subscriptions, users, billing, and platform health.',
-    href: ROUTES.superAdmin.dashboard,
-    icon: Building2,
-    action: 'Open platform route',
-  },
-  {
-    eyebrow: 'School operations',
-    title: 'School Admin',
-    description:
-      'Run students, staff, attendance, fees, exams, and daily workflows.',
-    href: ROUTES.schoolAdmin.dashboard,
     icon: GraduationCap,
-    action: 'Open school route',
+    title: 'People, brought together.',
+    description:
+      'Keep student profiles, staff assignments, and campus records in one organized workspace.',
   },
-] as const;
+  {
+    icon: CalendarCheck2,
+    title: 'A smoother school day.',
+    description:
+      'Move from attendance to class schedules and exam results with a clear view of what comes next.',
+  },
+  {
+    icon: WalletCards,
+    title: 'Every payment in view.',
+    description:
+      'Follow fee collection, review invoices, and record payments without losing the bigger picture.',
+  },
+];
 
-export default async function Home() {
-  const summary = await systemService.getSummary();
-
+export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
-        <header className="flex items-center justify-between border-b border-border pb-5">
-          <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-xl bg-primary text-sm font-black tracking-tight text-primary-foreground">
-              E
+    <main className="min-h-screen bg-background">
+      <header className="border-b bg-card">
+        <nav
+          aria-label="Main navigation"
+          className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8"
+        >
+          <Link href="/" aria-label="Edvance home">
+            <Brand />
+          </Link>
+          <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
+            <a href="#platform" className="hover:text-primary">
+              Platform
+            </a>
+            <a href="#workspaces" className="hover:text-primary">
+              For your team
+            </a>
+          </div>
+          <Button
+            nativeButton={false}
+            render={<Link href="/login" />}
+            className="gap-2"
+          >
+            Sign in <ArrowRight aria-hidden="true" className="size-4" />
+          </Button>
+        </nav>
+      </header>
+
+      <section className="relative isolate overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="dot-pattern pointer-events-none absolute inset-0 -z-10 text-primary/15 [mask-image:linear-gradient(black,transparent_85%)]"
+        />
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14 lg:py-24">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-accent px-3 py-1.5 text-[11px] font-medium text-accent-foreground">
+              <Layers2 aria-hidden="true" className="size-3.5" /> THE CONNECTED
+              SCHOOL WORKSPACE
             </span>
-            <div>
-              <p className="text-sm font-bold tracking-tight">Edvance</p>
-              <p className="text-xs text-muted-foreground">
-                School operations, clearly run.
-              </p>
+            <h1 className="mt-6 text-balance text-5xl font-semibold leading-[1.08] tracking-[-0.065em] sm:text-6xl">
+              Great schools.
+              <br />
+              Less busywork.
+              <br />
+              <span className="text-primary">More possibility.</span>
+            </h1>
+            <p className="mt-6 max-w-md text-base leading-7 text-muted-foreground">
+              Bring your students, teams, and daily operations together. Edvance
+              gives every school a clearer way to work.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button
+                size="lg"
+                nativeButton={false}
+                render={<Link href="/login" />}
+              >
+                Explore the demo <ArrowRight aria-hidden="true" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                nativeButton={false}
+                render={<a href="#platform" aria-label="See the platform" />}
+              >
+                See the platform
+              </Button>
+            </div>
+            <p className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+              <Check aria-hidden="true" className="size-3.5 text-primary" /> Two
+              demo workspaces. No setup required.
+            </p>
+          </div>
+          <div className="relative min-w-0">
+            <ProductPreview />
+            <div className="mx-auto mt-5 flex w-fit items-center gap-2 text-xs text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-primary" /> One
+              workspace. A more connected school.
             </div>
           </div>
-          <PlatformStatus label={summary.statusLabel} />
-        </header>
+        </div>
+      </section>
 
-        <div className="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[0.88fr_1.12fr] lg:py-16">
-          <div className="max-w-xl">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-primary">
-              Frontend foundation · Day 1
+      <section id="platform" className="scroll-mt-8 border-y bg-card">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
+          <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-primary">
+                Built around your school day
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.045em]">
+                Everything has its place.
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-6 text-muted-foreground">
+              From the first attendance check to the final fee receipt, keep
+              your team moving together.
             </p>
-            <h1 className="text-balance text-4xl font-black leading-[1.05] tracking-[-0.045em] sm:text-5xl lg:text-6xl">
-              One calm workspace for every school operation.
-            </h1>
-            <p className="mt-6 max-w-lg text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-              The architecture is ready for two focused admin experiences and a
-              clean API handoff to the NestJS backend.
-            </p>
-
-            <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-border pt-6">
-              <div>
-                <dt className="text-xs text-muted-foreground">Route areas</dt>
-                <dd className="mt-1 text-2xl font-black tracking-tight">03</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">State layer</dt>
-                <dd className="mt-1 text-sm font-bold">Redux Toolkit</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">Data mode</dt>
-                <dd className="mt-1 text-sm font-bold">Mock-ready</dd>
-              </div>
-            </dl>
           </div>
-
-          <div className="grid gap-3">
-            {entryPoints.map((entry, index) => (
-              <RouteCard key={entry.href} {...entry} index={index + 1} />
+          <div className="grid gap-8 md:grid-cols-3">
+            {features.map(({ icon: Icon, title, description }, i) => (
+              <article key={title} className="border-t pt-6">
+                <div className="flex items-center justify-between">
+                  <span className="grid size-11 place-items-center rounded-xl bg-accent text-primary">
+                    <Icon aria-hidden="true" className="size-5" />
+                  </span>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    0{i + 1}
+                  </span>
+                </div>
+                <h3 className="mt-5 text-lg font-semibold tracking-tight">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {description}
+                </p>
+              </article>
             ))}
           </div>
         </div>
-
-        <footer className="flex flex-col gap-3 border-t border-border pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>Built as reusable feature modules, not disconnected screens.</p>
-          <Link
-            href={ROUTES.designSystem}
-            className="flex w-fit items-center gap-2 font-semibold text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/30"
-          >
-            View reusable design system{' '}
-            <ArrowRight aria-hidden="true" className="size-3.5" />
-          </Link>
-        </footer>
       </section>
+
+      <section
+        id="workspaces"
+        className="mx-auto grid max-w-7xl scroll-mt-8 gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[0.8fr_1.2fr]"
+      >
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-primary">
+            The right view for every role
+          </p>
+          <h2 className="mt-3 max-w-sm text-3xl font-semibold tracking-[-0.045em]">
+            One school or a whole network.
+          </h2>
+          <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
+            Give your team a workspace that fits their responsibilities.
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[
+            {
+              title: 'School workspace',
+              icon: GraduationCap,
+              description: 'Students, staff, attendance, exams, and fees.',
+              href: '/school-admin/dashboard',
+            },
+            {
+              title: 'Platform workspace',
+              icon: Building2,
+              description: 'Schools, subscriptions, billing, and growth.',
+              href: '/super-admin/dashboard',
+            },
+          ].map(({ title, icon: Icon, description, href }) => (
+            <Link
+              key={title}
+              href={href}
+              className="group rounded-xl border bg-card p-6 transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/30"
+            >
+              <Icon aria-hidden="true" className="size-6 text-primary" />
+              <h3 className="mt-5 font-semibold">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                {description}
+              </p>
+              <span className="mt-6 flex items-center gap-2 text-xs font-semibold text-primary">
+                Open workspace{' '}
+                <ArrowRight
+                  aria-hidden="true"
+                  className="size-3.5 transition-transform group-hover:translate-x-1"
+                />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <footer className="border-t bg-card">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-7 sm:px-8">
+          <Brand />
+          <p className="text-xs text-muted-foreground">
+            School operations, clearly run.
+          </p>
+          <Link
+            href="/design-system"
+            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary"
+          >
+            <ChartNoAxesCombined aria-hidden="true" className="size-3.5" />{' '}
+            Design system
+          </Link>
+        </div>
+      </footer>
     </main>
   );
 }

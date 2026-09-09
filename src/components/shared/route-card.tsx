@@ -34,7 +34,7 @@ export function RouteCard({
         <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
           0{index} · {eyebrow}
         </span>
-        <span className="mt-1 block text-lg font-black tracking-tight">
+        <span className="mt-1 block text-lg font-semibold tracking-tight">
           {title}
         </span>
         <span className="mt-1 block max-w-md text-sm leading-6 text-muted-foreground">

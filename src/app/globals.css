@@ -53,80 +53,89 @@
 }
 
 :root {
-  --background: oklch(0.985 0.008 91);
-  --foreground: oklch(0.2 0.035 255);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.035 255);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.035 255);
-  --primary: oklch(0.51 0.18 253);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.94 0.025 236);
-  --secondary-foreground: oklch(0.28 0.07 253);
-  --muted: oklch(0.955 0.01 250);
-  --muted-foreground: oklch(0.48 0.025 255);
-  --accent: oklch(0.9 0.075 185);
-  --accent-foreground: oklch(0.25 0.065 188);
-  --destructive: oklch(0.58 0.22 27);
-  --success: oklch(0.9 0.08 153);
-  --success-foreground: oklch(0.34 0.12 153);
-  --warning: oklch(0.92 0.1 88);
-  --warning-foreground: oklch(0.42 0.1 62);
-  --info: oklch(0.91 0.055 245);
-  --info-foreground: oklch(0.4 0.14 252);
-  --border: oklch(0.88 0.02 255);
-  --input: oklch(0.88 0.02 255);
-  --ring: oklch(0.58 0.16 250);
-  --chart-1: oklch(0.56 0.18 253);
-  --chart-2: oklch(0.68 0.15 180);
-  --chart-3: oklch(0.73 0.15 75);
-  --chart-4: oklch(0.61 0.16 305);
-  --chart-5: oklch(0.64 0.19 25);
+  --background: #f6f8f8;
+  --foreground: #1b2b32;
+  --card: #ffffff;
+  --card-foreground: #1b2b32;
+  --popover: #ffffff;
+  --popover-foreground: #1b2b32;
+  --primary: #087f68;
+  --primary-foreground: #ffffff;
+  --secondary: #edf3f1;
+  --secondary-foreground: #304e45;
+  --muted: #f0f3f4;
+  --muted-foreground: #62747c;
+  --accent: #e6f4ee;
+  --accent-foreground: #096b54;
+  --destructive: #c13f4c;
+  --success: #e9f6ef;
+  --success-foreground: #237348;
+  --warning: #fff5e3;
+  --warning-foreground: #966119;
+  --info: #edf2fc;
+  --info-foreground: #476ab2;
+  --border: #e3e9e9;
+  --input: #d9e1e2;
+  --ring: #15977e;
+  --chart-1: #168c73;
+  --chart-2: #719cca;
+  --chart-3: #d7a454;
+  --chart-4: #9381c1;
+  --chart-5: #d77883;
   --radius: 0.75rem;
-  --sidebar: oklch(0.22 0.055 255);
-  --sidebar-foreground: oklch(0.96 0.01 240);
-  --sidebar-primary: oklch(0.7 0.14 185);
-  --sidebar-primary-foreground: oklch(0.19 0.04 255);
-  --sidebar-accent: oklch(0.29 0.06 255);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.7 0.14 185);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #384f58;
+  --sidebar-primary: #e6f4ee;
+  --sidebar-primary-foreground: #08745d;
+  --sidebar-accent: #f2f6f5;
+  --sidebar-accent-foreground: #1b3b32;
+  --sidebar-border: #e5ebea;
+  --sidebar-ring: #15977e;
   --font-ui:
-    Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     sans-serif;
   --font-code: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 
 .dark {
-  --background: oklch(0.16 0.035 255);
-  --foreground: oklch(0.96 0.012 240);
-  --card: oklch(0.205 0.04 255);
-  --card-foreground: oklch(0.96 0.012 240);
-  --popover: oklch(0.205 0.04 255);
-  --popover-foreground: oklch(0.96 0.012 240);
-  --primary: oklch(0.7 0.145 250);
-  --primary-foreground: oklch(0.16 0.035 255);
-  --secondary: oklch(0.27 0.045 255);
-  --secondary-foreground: oklch(0.95 0.012 240);
-  --muted: oklch(0.25 0.035 255);
-  --muted-foreground: oklch(0.72 0.025 245);
-  --accent: oklch(0.7 0.13 183);
-  --accent-foreground: oklch(0.15 0.035 255);
-  --destructive: oklch(0.68 0.19 24);
-  --success: oklch(0.32 0.08 153);
-  --success-foreground: oklch(0.84 0.11 153);
-  --warning: oklch(0.34 0.08 70);
-  --warning-foreground: oklch(0.87 0.11 85);
-  --info: oklch(0.3 0.08 250);
-  --info-foreground: oklch(0.85 0.08 245);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.68 0.14 250);
-  --chart-1: oklch(0.68 0.14 250);
-  --chart-2: oklch(0.72 0.13 180);
-  --chart-3: oklch(0.78 0.13 75);
-  --chart-4: oklch(0.7 0.14 305);
-  --chart-5: oklch(0.7 0.17 25);
+  color-scheme: dark;
+  --background: #101b20;
+  --foreground: #e7efef;
+  --card: #17262c;
+  --card-foreground: #e7efef;
+  --popover: #1b2c32;
+  --popover-foreground: #e7efef;
+  --primary: #69d2b1;
+  --primary-foreground: #10392e;
+  --secondary: #223831;
+  --secondary-foreground: #d5eae1;
+  --muted: #213239;
+  --muted-foreground: #9cb0b7;
+  --accent: #244638;
+  --accent-foreground: #9ae6c4;
+  --destructive: #fb8b97;
+  --success: #203e30;
+  --success-foreground: #9edcb8;
+  --warning: #403522;
+  --warning-foreground: #e9c386;
+  --info: #27374b;
+  --info-foreground: #a8c3ec;
+  --border: #2b3d44;
+  --input: #3a5058;
+  --ring: #69d2b1;
+  --chart-1: #69d2b1;
+  --chart-2: #8cb8e6;
+  --chart-3: #e4bc7c;
+  --chart-4: #b6a2e8;
+  --chart-5: #eb9ca6;
+  --sidebar: #142228;
+  --sidebar-foreground: #bdd0d5;
+  --sidebar-primary: #254539;
+  --sidebar-primary-foreground: #96e1c5;
+  --sidebar-accent: #21343b;
+  --sidebar-accent-foreground: #e7efef;
+  --sidebar-border: #2b3d44;
+  --sidebar-ring: #69d2b1;
 }
 
 @layer base {
@@ -144,5 +153,64 @@
 
   ::selection {
     background: color-mix(in oklch, var(--primary) 22%, transparent);
+  }
+}
+
+@layer components {
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.7rem;
+    background: #087f68;
+    color: white;
+    box-shadow:
+      inset 0 1px 0 #ffffff30,
+      0 2px 4px #083e2815;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(currentColor 0.75px, transparent 0.75px);
+    background-size: 18px 18px;
+  }
+
+  .skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--muted);
+  }
+
+  .skeleton-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--card) 70%, transparent),
+      transparent
+    );
+    animation: skeleton-sweep 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes skeleton-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

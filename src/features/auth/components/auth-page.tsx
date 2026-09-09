@@ -1,5 +1,7 @@
-import { CheckCircle2, GraduationCap, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Check, Layers2 } from 'lucide-react';
 import Link from 'next/link';
+
+import { Brand } from '@/components/shared/brand';
 
 export function AuthPage({
   eyebrow,
@@ -13,101 +15,86 @@ export function AuthPage({
   children: React.ReactNode;
 }) {
   return (
-    <main className="grid min-h-screen bg-background lg:grid-cols-[minmax(0,0.9fr)_minmax(540px,1.1fr)]">
-      <section className="relative hidden overflow-hidden bg-sidebar px-10 py-12 text-sidebar-foreground lg:flex lg:flex-col">
-        <div className="absolute -right-32 -top-32 size-96 rounded-full bg-sidebar-primary/15 blur-3xl" />
+    <main className="grid min-h-screen bg-card lg:grid-cols-[minmax(0,0.95fr)_minmax(540px,1.05fr)]">
+      <section className="relative m-4 hidden flex-col overflow-hidden rounded-2xl bg-[#113f35] px-10 py-9 text-white lg:flex xl:px-14">
+        <div
+          aria-hidden="true"
+          className="dot-pattern absolute inset-0 text-white/15 [mask-image:linear-gradient(transparent,black)]"
+        />
         <Link
           href="/"
-          className="relative flex w-fit items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+          className="relative w-fit rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
-          <span className="grid size-10 place-items-center rounded-xl bg-sidebar-primary text-sm font-black text-sidebar-primary-foreground">
-            E
-          </span>
-          <span>
-            <span className="block text-base font-black tracking-tight">
-              Edvance
-            </span>
-            <span className="block text-xs text-sidebar-foreground/60">
-              School operations, clearly run.
-            </span>
-          </span>
+          <Brand />
         </Link>
-
-        <div className="relative my-auto max-w-xl py-16">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-sidebar-primary">
-            One secure workspace
-          </p>
-          <h2 className="mt-5 text-4xl font-black leading-tight tracking-[-0.04em] xl:text-5xl">
-            From platform oversight to the school day.
+        <div className="relative my-auto py-14">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-[#b9e9d6]">
+            <Layers2 aria-hidden="true" className="size-3.5" /> A little less
+            admin. A lot more impact.
+          </span>
+          <h2 className="mt-6 max-w-lg text-4xl font-medium leading-[1.12] tracking-[-0.045em] xl:text-5xl">
+            Make room for
+            <br />
+            what matters.
+            <br />
+            <span className="text-[#9ee2c4]">Your school.</span>
           </h2>
-          <p className="mt-5 max-w-lg text-base leading-7 text-sidebar-foreground/68">
-            Role-aware access keeps every administrator focused on the students,
-            teams, and operations they are responsible for.
+          <p className="mt-5 max-w-sm text-sm leading-7 text-white/75">
+            A connected home for your people, academics, and finances.
+            Everything you need for a school day well run.
           </p>
-          <ul className="mt-9 grid gap-4 text-sm text-sidebar-foreground/80">
-            <li className="flex items-center gap-3">
-              <CheckCircle2
-                aria-hidden="true"
-                className="size-5 text-sidebar-primary"
-              />
-              Protected workspaces with clear role boundaries
-            </li>
-            <li className="flex items-center gap-3">
-              <CheckCircle2
-                aria-hidden="true"
-                className="size-5 text-sidebar-primary"
-              />
-              Accessible recovery and validation feedback
-            </li>
-          </ul>
-        </div>
-
-        <div className="relative grid grid-cols-2 gap-3">
-          <div className="rounded-xl border border-sidebar-border bg-sidebar-accent/50 p-4">
-            <ShieldCheck
-              aria-hidden="true"
-              className="size-5 text-sidebar-primary"
-            />
-            <p className="mt-3 text-sm font-bold">Super Admin</p>
-            <p className="mt-1 text-xs text-sidebar-foreground/55">
-              Platform operations
+          <div className="mt-10 max-w-md rounded-xl border border-white/15 bg-white/[0.06] p-5 backdrop-blur-sm">
+            <p className="text-xs font-medium text-white/70">
+              YOUR DAY, SIMPLIFIED
             </p>
-          </div>
-          <div className="rounded-xl border border-sidebar-border bg-sidebar-accent/50 p-4">
-            <GraduationCap
-              aria-hidden="true"
-              className="size-5 text-sidebar-primary"
-            />
-            <p className="mt-3 text-sm font-bold">School Admin</p>
-            <p className="mt-1 text-xs text-sidebar-foreground/55">
-              Daily school operations
-            </p>
+            {[
+              'Know who’s here. Keep attendance in sync.',
+              'Stay on top of fees and collections.',
+              'Give every student a clearer path forward.',
+            ].map((item) => (
+              <div
+                key={item}
+                className="mt-4 flex items-center gap-3 text-xs leading-5 text-white/90"
+              >
+                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[#a3e2c5]/15 text-[#a3e2c5]">
+                  <Check aria-hidden="true" className="size-3.5" />
+                </span>
+                {item}
+              </div>
+            ))}
           </div>
         </div>
+        <p className="relative text-xs text-white/60">
+          Edvance · School operations, clearly run.
+        </p>
       </section>
-
-      <section className="flex min-h-screen items-center justify-center px-5 py-8 sm:px-8 lg:px-12">
-        <div className="w-full max-w-md">
+      <section className="flex min-h-screen flex-col px-5 py-7 sm:px-10">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="lg:hidden" aria-label="Edvance home">
+            <Brand />
+          </Link>
           <Link
             href="/"
-            className="mb-10 flex w-fit items-center gap-2 rounded-lg text-sm font-black tracking-tight focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/30 lg:hidden"
+            className="ml-auto flex items-center gap-2 rounded text-xs text-muted-foreground hover:text-primary focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <span className="grid size-9 place-items-center rounded-xl bg-primary text-xs text-primary-foreground">
-              E
-            </span>
-            Edvance
+            <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to home
           </Link>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">
+        </div>
+        <div className="mx-auto my-auto w-full max-w-[400px] py-12">
+          <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-primary">
             {eyebrow}
           </p>
-          <h1 className="mt-3 text-3xl font-black tracking-[-0.035em] sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">
             {title}
           </h1>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
             {description}
           </p>
           <div className="mt-8">{children}</div>
         </div>
+        <p className="text-center text-xs text-muted-foreground">
+          A calmer way to manage your school.
+        </p>
       </section>
     </main>
   );

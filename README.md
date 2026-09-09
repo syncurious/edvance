@@ -19,7 +19,6 @@ Open the local URL printed by the development server.
 ## Quality checks
 
 ```bash
-
 npm run lint
 npm run typecheck
 npm run test
@@ -36,7 +35,17 @@ npm run build
 - `/super-admin/billing` — billing overview
 - `/super-admin/subscriptions/usage` — platform usage
 - `/super-admin/users` — platform user management
+- `/super-admin/reports` — platform health, subscription, revenue, and usage reports
+- `/super-admin/settings` — platform identity, security, notification, and integration settings
 - `/school-admin/dashboard` — school administration
+- `/school-admin/students` — student directory and profiles
+- `/school-admin/teachers` — teacher directory and assignments
+- `/school-admin/classes` — class hierarchy and rosters
+- `/school-admin/attendance` — attendance entry and reports
+- `/school-admin/fees` — fee structures, invoices, payments, and defaulters
+- `/school-admin/exams` — exam setup, marks, and results
+- `/school-admin/reports` — shared school reporting workflow
+- `/school-admin/settings` — school, academic, attendance, fee, and notification settings
 
 ## Architecture
 
@@ -44,12 +53,16 @@ npm run build
 - `src/app/api` contains same-origin route handlers that proxy backend requests.
 - `src/components` contains reusable UI, layout, and shared components.
 - `src/features` owns domain models and behavior.
-- `src/store` contains Redux Toolkit setup and typed hooks.
+- `src/store` contains Redux Toolkit state, typed hooks, and the shared RTK Query API cache.
 - `src/lib/api` contains the browser transport client, which defaults to relative `/api` URLs.
 - `src/mocks` provides typed development data behind feature service interfaces.
 - `PLAN.md` is the delivery tracker and work log.
 
-Feature services currently use typed mock data. During NestJS integration, browser clients must call only relative `/api/...` endpoints. Next.js route handlers read the NestJS base URL from a server-only environment variable such as `BACKEND_API_URL` and forward the request. Never expose that URL through a `NEXT_PUBLIC_` variable. NestJS remains responsible for authentication, authorization, validation, and tenant isolation.
+Feature services currently use typed mock data. During NestJS integration, browser clients call only relative `/api/...` endpoints. The catch-all Next.js Route Handler reads `EDVANCE_BACKEND_URL` from the server runtime and forwards the request. Never expose that value through a `NEXT_PUBLIC_` variable. NestJS remains responsible for authentication, authorization, validation, and tenant isolation.
+
+Copy `.env.example` to `.env.local` only when a backend is available. Leave the value unset while using mocks; `/api/...` returns a safe `503` instead of exposing configuration details.
+
+See [API contracts](./docs/API_CONTRACTS.md) for the frontend payload handoff, [backend blueprint](./docs/BACKEND_BLUEPRINT.md) for the NestJS/PostgreSQL multi-tenant schema and build order, and [quality audit](./docs/QUALITY_AUDIT.md) for the final route/state/accessibility review.
 
 ## Delivery plan
 

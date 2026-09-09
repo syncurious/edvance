@@ -92,7 +92,7 @@ function UserIdentity({ user }: { user: PlatformUser }) {
     .join('');
   return (
     <div className="flex min-w-56 items-center gap-3">
-      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-black text-primary">
+      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
         {initials}
       </span>
       <div className="min-w-0">

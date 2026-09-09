@@ -44,7 +44,7 @@ function MetricTile({ label, value }: { label: string; value: string }) {
       <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
         {label}
       </p>
-      <p className="mt-2 text-2xl font-black tracking-tight">{value}</p>
+      <p className="mt-2 text-2xl font-semibold tracking-tight">{value}</p>
     </div>
   );
 }

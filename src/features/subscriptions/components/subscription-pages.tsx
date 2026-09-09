@@ -154,7 +154,7 @@ function PlanCard({ plan }: { plan: SubscriptionPlan }) {
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-primary">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               {plan.highlighted ? 'Most popular' : `${plan.schools} schools`}
             </p>
             <CardTitle className="mt-2 text-xl">{plan.name}</CardTitle>
@@ -169,7 +169,7 @@ function PlanCard({ plan }: { plan: SubscriptionPlan }) {
       </CardHeader>
       <CardContent className="grid gap-5">
         <div>
-          <span className="text-3xl font-black">
+          <span className="text-3xl font-semibold">
             Rs {currency.format(plan.monthlyPrice)}
           </span>
           <span className="text-sm text-muted-foreground"> / month</span>

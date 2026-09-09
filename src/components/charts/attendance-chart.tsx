@@ -6,7 +6,7 @@ import { ChartContainer, type ChartConfig } from '@/components/ui/chart';
 import type { AttendanceDataPoint } from '@/features/dashboard/types';
 
 const chartConfig = {
-  present: { label: 'Present', color: 'var(--chart-2)' },
+  present: { label: 'Present', color: 'var(--chart-1)' },
   absent: { label: 'Absent', color: 'var(--chart-5)' },
   late: { label: 'Late', color: 'var(--chart-3)' },
   leave: { label: 'Leave', color: 'var(--chart-4)' },
@@ -41,7 +41,7 @@ export function AttendanceChart({ data }: { data: AttendanceDataPoint[] }) {
                 data={data}
                 dataKey="value"
                 nameKey="label"
-                innerRadius={64}
+                innerRadius={72}
                 outerRadius={88}
                 paddingAngle={3}
                 strokeWidth={0}
@@ -49,7 +49,7 @@ export function AttendanceChart({ data }: { data: AttendanceDataPoint[] }) {
                 {data.map((item) => (
                   <Cell
                     key={item.status}
-                    fill={`var(--color-${item.status})`}
+                    fill={chartConfig[item.status].color}
                   />
                 ))}
               </Pie>
@@ -58,7 +58,7 @@ export function AttendanceChart({ data }: { data: AttendanceDataPoint[] }) {
         </figure>
         <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
           <div>
-            <p className="text-2xl font-black tracking-tight">
+            <p className="text-2xl font-semibold tracking-tight">
               {attendanceRate}%
             </p>
             <p className="text-[11px] font-semibold text-muted-foreground">
@@ -80,7 +80,7 @@ export function AttendanceChart({ data }: { data: AttendanceDataPoint[] }) {
               <span
                 aria-hidden="true"
                 className="size-2 rounded-full"
-                style={{ backgroundColor: `var(--color-${item.status})` }}
+                style={{ backgroundColor: chartConfig[item.status].color }}
               />
               {item.label}
             </span>

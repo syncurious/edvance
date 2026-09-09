@@ -66,8 +66,8 @@ import {
 } from '@/components/ui/tooltip';
 
 const colors = [
-  { name: 'Primary', className: 'bg-primary', value: 'Action blue' },
-  { name: 'Accent', className: 'bg-accent', value: 'Signal teal' },
+  { name: 'Primary', className: 'bg-primary', value: 'Edvance emerald' },
+  { name: 'Accent', className: 'bg-accent', value: 'Soft mint' },
   { name: 'Success', className: 'bg-success', value: 'Positive green' },
   { name: 'Warning', className: 'bg-warning', value: 'Attention amber' },
   { name: 'Destructive', className: 'bg-destructive', value: 'Critical red' },
@@ -88,10 +88,10 @@ function Section({
   return (
     <section className="grid gap-6 border-t border-border py-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 lg:py-14">
       <div>
-        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
           {number}
         </p>
-        <h2 className="mt-2 text-xl font-black tracking-tight">{title}</h2>
+        <h2 className="mt-2 text-xl font-semibold tracking-tight">{title}</h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           {description}
         </p>
@@ -130,7 +130,7 @@ export function DesignSystemShowcase() {
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
               Display
             </p>
-            <p className="mt-2 text-3xl font-black tracking-[-0.035em] sm:text-4xl">
+            <p className="mt-2 text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
               School work, made clear.
             </p>
             <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
