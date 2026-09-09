@@ -1,6 +1,7 @@
 "use client";
 
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
+import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -26,14 +27,26 @@ function TooltipContent({
   ...props
 }: TooltipPrimitive.Popup.Props &
   Pick<TooltipPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">) {
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setContainer(document.body);
+  }, []);
+
+  // An implicit portal can inherit a drawer/dialog portal. Wait for the client
+  // and explicitly escape it so transforms and scrolling cannot move the layer.
+  if (!container) return null;
+
   return (
-    <TooltipPrimitive.Portal>
+    <TooltipPrimitive.Portal container={container}>
       <TooltipPrimitive.Positioner
+        data-slot="tooltip-positioner"
+        positionMethod="fixed"
         align={align}
         alignOffset={alignOffset}
         side={side}
         sideOffset={sideOffset}
-        className="isolate z-50"
+        className="isolate z-50 data-anchor-hidden:invisible data-anchor-hidden:pointer-events-none"
       >
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"

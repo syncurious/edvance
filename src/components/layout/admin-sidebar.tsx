@@ -57,12 +57,14 @@ function NavItem({
     collapsed && 'justify-center px-2',
   );
 
-  if (item.children?.length) {
-    return (
-      <div>
-        <Tooltip>
-          <TooltipTrigger
-            render={
+  const hasChildren = Boolean(item.children?.length);
+
+  return (
+    <div>
+      <Tooltip key={pathname} disabled={!collapsed}>
+        <TooltipTrigger
+          render={
+            hasChildren ? (
               <button
                 type="button"
                 className={itemClasses}
@@ -77,81 +79,65 @@ function NavItem({
                   setOpenOverride(!open);
                 }}
               />
-            }
-          >
-            <Icon aria-hidden="true" className="size-4.5 shrink-0" />
-            {!collapsed ? (
-              <span className="flex-1 text-left">{item.title}</span>
-            ) : null}
-            {!collapsed ? (
-              <ChevronDown
-                aria-hidden="true"
-                className={cn(
-                  'size-4 transition-transform',
-                  open && 'rotate-180',
-                )}
+            ) : (
+              <Link
+                href={item.href ?? '#'}
+                onClick={onNavigate}
+                aria-current={active ? 'page' : undefined}
+                aria-label={collapsed ? item.title : undefined}
+                className={itemClasses}
               />
-            ) : null}
-          </TooltipTrigger>
-          {collapsed ? (
-            <TooltipContent side="right">{item.title}</TooltipContent>
+            )
+          }
+        >
+          <Icon aria-hidden="true" className="size-4.5 shrink-0" />
+          {!collapsed ? (
+            <span className="flex-1 text-left">{item.title}</span>
           ) : null}
-        </Tooltip>
+          {!collapsed && hasChildren ? (
+            <ChevronDown
+              aria-hidden="true"
+              className={cn(
+                'size-4 transition-transform',
+                open && 'rotate-180',
+              )}
+            />
+          ) : null}
+          {!collapsed && !hasChildren && item.badge ? (
+            <span className="rounded-full bg-sidebar-accent px-2 py-0.5 text-[10px] font-bold text-sidebar-accent-foreground">
+              {item.badge}
+            </span>
+          ) : null}
+        </TooltipTrigger>
+        {collapsed ? (
+          <TooltipContent side="right">{item.title}</TooltipContent>
+        ) : null}
+      </Tooltip>
 
-        {!collapsed && open ? (
-          <div className="ml-5 border-l border-sidebar-border pl-3 pt-1">
-            {item.children.map((child) => {
-              const childActive = pathname === child.href;
-              return (
-                <Link
-                  key={child.href}
-                  href={child.href}
-                  onClick={onNavigate}
-                  aria-current={childActive ? 'page' : undefined}
-                  className={cn(
-                    'flex min-h-9 items-center rounded-md px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
-                    childActive
-                      ? 'font-semibold text-sidebar-primary-foreground'
-                      : 'text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-                  )}
-                >
-                  {child.title}
-                </Link>
-              );
-            })}
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-
-  return (
-    <Tooltip>
-      <TooltipTrigger
-        render={
-          <Link
-            href={item.href ?? '#'}
-            onClick={onNavigate}
-            aria-current={active ? 'page' : undefined}
-            aria-label={collapsed ? item.title : undefined}
-            className={itemClasses}
-          />
-        }
-      >
-        <Icon aria-hidden="true" className="size-4.5 shrink-0" />
-        {!collapsed ? (
-          <span className="flex-1 text-left">{item.title}</span>
-        ) : null}
-        {!collapsed && item.badge ? (
-          <span className="rounded-full bg-sidebar-accent px-2 py-0.5 text-[10px] font-bold text-sidebar-accent-foreground">
-            {item.badge}
-          </span>
-        ) : null}
-      </TooltipTrigger>
-      {collapsed ? (
-        <TooltipContent side="right">{item.title}</TooltipContent>
+      {!collapsed && open && hasChildren ? (
+        <div className="ml-5 border-l border-sidebar-border pl-3 pt-1">
+          {item.children?.map((child) => {
+            const childActive = pathname === child.href;
+            return (
+              <Link
+                key={child.href}
+                href={child.href}
+                onClick={onNavigate}
+                aria-current={childActive ? 'page' : undefined}
+                className={cn(
+                  'flex min-h-9 items-center rounded-md px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
+                  childActive
+                    ? 'font-semibold text-sidebar-primary-foreground'
+                    : 'text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                )}
+              >
+                {child.title}
+              </Link>
+            );
+          })}
+        </div>
       ) : null}
-    </Tooltip>
+    </div>
   );
 }
 
