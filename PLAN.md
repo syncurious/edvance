@@ -35,8 +35,8 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 - Current requested day: Day 15
 - Last fully completed day: Day 15
-- Active task: SaaS visual redesign — brand, shell, shared components, dashboards, and entry experience
-- Overall status: SAAS VISUAL REDESIGN IN PROGRESS
+- Active task: SaaS visual redesign complete — verified brand, shell, shared components, dashboards, and entry experience
+- Overall status: SAAS VISUAL REDESIGN COMPLETE
 - Last updated: 2026-09-09
 - Next action: Integrate the first NestJS feature from `docs/API_CONTRACTS.md` when its API is available
 
@@ -596,3 +596,20 @@ Add one entry for every work session. Keep entries brief but specific.
 - Blocked: None for frontend readiness.
 - Decisions: Keep settings and platform reports behind replaceable feature services now, then migrate them to relative `/api/settings/...` and `/api/reports/platform...` endpoints. Keep unsupported URLs honest through `notFound()` instead of showing a generic feature-ready shell.
 - Next starting point: When the NestJS contract is available, finalize session behavior and OpenAPI first, then connect one feature at a time through the server-only Next.js API gateway.
+
+### 2026-09-09 — SaaS visual redesign
+
+- Requested: Refresh the theme, components, patterns, and skeletons so Edvance presents as a polished SaaS product.
+- Continued first: Read the execution plan and existing feature architecture; preserved the standard Next.js runtime, existing shadcn/Base UI foundation, feature services, and backend contracts.
+- [x] DONE — Established emerald (#087f68), slate, white, and soft mint tokens; coordinated dark-theme/sidebar/chart/status palettes; refined typography, borders, shadows, spacing, buttons, tabs, cards, tables, badges, and empty states.
+- [x] DONE — Added a shared Edvance brand mark and matching favicon. Replaced the development-scaffold homepage with product messaging, a clearly labeled sample workspace, feature sections, and working demo/workspace destinations. Redesigned sign-in and recovery page framing.
+- [x] DONE — Refined both admin shells with workspace identity, lighter navigation, contextual preferences, and a functioning role-specific page-search dialog with Ctrl/⌘ K, filtering, keyboard selection, and empty results. Connected the profile menu to settings and synchronized the theme-toggle state with the document theme.
+- [x] DONE — Improved metric hierarchy, revenue area charts, attendance charts/legend colors, and school-dashboard task shortcuts. Replaced pulse skeletons with a shared shimmer that respects reduced-motion preferences.
+- [x] DONE — Fixed shared card/grid containment discovered during visual QA: wide tables scroll inside their card instead of expanding adjacent pagination and clipping controls.
+- Verification: All 121 tests across 47 files passed, including two new command-search behavior tests. Lint, type checking, and the Next.js Webpack production build passed (34 generated static pages plus dynamic routes). Formatting and whitespace checks passed after formatting the generated Next.js type reference.
+- Browser QA: Checked the homepage, login, both dashboards, student directory, invoices, attendance, exams, reports, settings, and subscriptions at representative desktop and 390×844 phone sizes. Verified demo login, search-to-invoices navigation, campus metric refresh, dark/light themes, mobile navigation and Escape dismissal. Final mobile student table measured 314px within a 390px document, with its 1180px contents scrolling internally; desktop containment was also verified. No browser warnings or errors were present in the final preview.
+- Preview: Local production preview on http://127.0.0.1:3001; no public deployment was performed.
+- Pending: None for this visual redesign. Live authentication, persistence, provider connections, and exports remain the existing backend-integration scope.
+- Blocked: None.
+- Decisions: Extend the installed shadcn/Base UI components rather than introduce another component library. Keep sample/demo claims explicit and retain all existing feature-service boundaries.
+- Next starting point: Integrate the first NestJS feature from the API contracts when available, preserving the verified visual system and shared loading/error/empty patterns.
