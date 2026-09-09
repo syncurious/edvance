@@ -2,6 +2,8 @@
 
 This document is the integration handoff for the current frontend. The TypeScript models and feature service interfaces under `src/features` remain the source of truth for payload shapes until a versioned OpenAPI contract replaces them.
 
+For the normalized PostgreSQL schema, Karachi/Sindh identity and document fields, tenant-isolation pattern, and recommended backend implementation order, see [`BACKEND_BLUEPRINT.md`](./BACKEND_BLUEPRINT.md).
+
 ## Request path and trust boundary
 
 ```text

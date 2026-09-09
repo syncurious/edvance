@@ -77,7 +77,7 @@ function ResultTable({
               {result.obtainedMarks} / {result.totalMarks}
             </TableCell>
             <TableCell>{result.percentage}%</TableCell>
-            <TableCell className="font-black">{result.grade}</TableCell>
+            <TableCell className="font-semibold">{result.grade}</TableCell>
             <TableCell>
               <ResultStatusBadge status={result.status} />
             </TableCell>
@@ -270,7 +270,7 @@ export function ExamDetail({
                 <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   {label}
                 </p>
-                <p className="mt-1 text-xl font-black">{value}</p>
+                <p className="mt-1 text-xl font-semibold">{value}</p>
               </div>
             </CardContent>
           </Card>

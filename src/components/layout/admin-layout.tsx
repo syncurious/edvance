@@ -28,7 +28,7 @@ export function AdminLayout({ adminRole, children }: AdminLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-muted/35 text-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <a
         href="#main-content"
         className="fixed left-4 top-3 z-[70] -translate-y-20 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground shadow-lg transition-transform focus:translate-y-0"
@@ -62,7 +62,7 @@ export function AdminLayout({ adminRole, children }: AdminLayoutProps) {
         <main
           id="main-content"
           tabIndex={-1}
-          className="px-4 py-5 sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+          className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-6"
         >
           <div className="mx-auto w-full max-w-[1440px]">
             <AdminBreadcrumbs config={config} />

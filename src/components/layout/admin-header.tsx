@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import {
   Bell,
   CheckCircle2,
@@ -8,7 +8,6 @@ import {
   Menu,
   Moon,
   Palette,
-  Search,
   Sun,
   UserRound,
 } from 'lucide-react';
@@ -26,7 +25,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
+import { WorkspaceSearch } from '@/components/layout/workspace-search';
 import { WorkspaceSelector } from '@/components/shared/workspace-selector';
 import { clearAuthSession } from '@/features/auth/auth-storage';
 import type { CampusId } from '@/features/dashboard/types';
@@ -43,8 +42,21 @@ interface AdminHeaderProps {
   onOpenNavigation: () => void;
 }
 
+function subscribeToTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  return () => observer.disconnect();
+}
+
 function ThemeToggle() {
-  const [dark, setDark] = useState(false);
+  const dark = useSyncExternalStore(
+    subscribeToTheme,
+    () => document.documentElement.classList.contains('dark'),
+    () => false,
+  );
 
   return (
     <Button
@@ -55,7 +67,6 @@ function ThemeToggle() {
       aria-pressed={dark}
       onClick={() => {
         const nextDark = !dark;
-        setDark(nextDark);
         document.documentElement.classList.toggle('dark', nextDark);
       }}
     >
@@ -81,7 +92,7 @@ export function AdminHeader({ config, onOpenNavigation }: AdminHeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-30 flex min-h-18 items-center gap-3 border-b border-border bg-background/92 px-4 backdrop-blur-lg sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 flex min-h-17 items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur-lg sm:px-6 lg:px-8">
       <Button
         type="button"
         variant="ghost"
@@ -93,21 +104,7 @@ export function AdminHeader({ config, onOpenNavigation }: AdminHeaderProps) {
         <Menu aria-hidden="true" />
       </Button>
 
-      <div className="relative hidden w-full max-w-sm md:block">
-        <label htmlFor="global-search" className="sr-only">
-          Search the workspace
-        </label>
-        <Search
-          aria-hidden="true"
-          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-        />
-        <Input
-          id="global-search"
-          type="search"
-          placeholder="Search students, schools, invoices…"
-          className="border-transparent bg-muted/70 pl-9 focus-visible:bg-card"
-        />
-      </div>
+      <WorkspaceSearch config={config} />
 
       <div className="ml-auto flex items-center gap-1 sm:gap-2">
         <div className="hidden sm:block">
@@ -206,7 +203,9 @@ export function AdminHeader({ config, onOpenNavigation }: AdminHeaderProps) {
                 </span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                render={<Link href={'/' + config.role + '/settings'} />}
+              >
                 <UserRound aria-hidden="true" /> Profile
               </DropdownMenuItem>
               <DropdownMenuItem render={<Link href="/design-system" />}>

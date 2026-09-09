@@ -4,11 +4,15 @@ import { useCallback } from 'react';
 import {
   CalendarCheck2,
   CalendarDays,
+  ArrowUpRight,
+  Plus,
   GraduationCap,
   UsersRound,
   WalletCards,
 } from 'lucide-react';
 
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { AttendanceChart } from '@/components/charts/attendance-chart';
 import { RevenueChart } from '@/components/charts/revenue-chart';
 import { StudentGrowthChart } from '@/components/charts/student-growth-chart';
@@ -117,8 +121,8 @@ export function SchoolAdminDashboardView({
         title="Good afternoon, Sara."
         description={`Track today's academics, attendance, collections, and upcoming work for ${dashboard.campusName.toLowerCase()}.`}
         actions={
-          <div className="grid w-full gap-2 sm:w-auto sm:grid-cols-[auto_minmax(11rem,1fr)] sm:items-center">
-            <span className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-border bg-card px-3 text-xs font-semibold text-muted-foreground">
+          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
+            <span className="hidden xl:inline-flex min-h-10 items-center gap-2 rounded-lg border border-border bg-card px-3 text-xs font-semibold text-muted-foreground">
               <CalendarDays aria-hidden="true" className="size-4" /> Updated{' '}
               {dashboard.updatedAt}
             </span>
@@ -129,7 +133,14 @@ export function SchoolAdminDashboardView({
               options={selectorOptions}
               onValueChange={(value) => onCampusChange(value as CampusId)}
               disabled={state === 'loading'}
+              className="w-40"
             />
+            <Button
+              render={<Link href="/school-admin/students/new" />}
+              nativeButton={false}
+            >
+              <Plus aria-hidden="true" /> Add student
+            </Button>
           </div>
         }
       />
@@ -165,6 +176,43 @@ export function SchoolAdminDashboardView({
                 }}
               />
             ))}
+          </section>
+
+          <section
+            aria-label="Daily shortcuts"
+            className="flex flex-col gap-4 rounded-xl border border-primary/15 bg-accent/45 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-primary/15 bg-card text-primary">
+                <CalendarCheck2 aria-hidden="true" className="size-5" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold">
+                  Start with the school day.
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  Take attendance, review collections, or check upcoming exams.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                render={<Link href="/school-admin/attendance" />}
+                nativeButton={false}
+              >
+                Mark attendance <ArrowUpRight aria-hidden="true" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                render={<Link href="/school-admin/fees" />}
+                nativeButton={false}
+              >
+                View fees <ArrowUpRight aria-hidden="true" />
+              </Button>
+            </div>
           </section>
 
           <section

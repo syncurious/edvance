@@ -455,7 +455,7 @@ export function PlatformSettingsPage({
               >
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h2 className="font-black">{integration.name}</h2>
+                    <h2 className="font-semibold">{integration.name}</h2>
                     <StatusBadge status={integration.tone}>
                       {integration.status}
                     </StatusBadge>

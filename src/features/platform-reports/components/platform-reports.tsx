@@ -253,14 +253,14 @@ export function PlatformReportsPage({
               <Card key={metric.label} className="min-w-0">
                 <CardContent className="grid gap-3 p-5">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                       {metric.label}
                     </p>
                     <StatusBadge status={metric.tone}>
                       {typeLabels[query.type]}
                     </StatusBadge>
                   </div>
-                  <p className="truncate text-2xl font-black tracking-tight">
+                  <p className="truncate text-2xl font-semibold tracking-tight">
                     {metric.value}
                   </p>
                 </CardContent>

@@ -124,7 +124,7 @@ export function ReportBuilder({
           ['Export', Download],
         ].map(([label, Icon], index) => (
           <li key={String(label)} className="flex shrink-0 items-center gap-2">
-            <span className="grid size-7 place-items-center rounded-full bg-primary text-xs font-black text-primary-foreground">
+            <span className="grid size-7 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
               {index + 1}
             </span>
             <Icon className="size-4 text-primary" />
@@ -249,7 +249,10 @@ export function ReportBuilder({
             </CardContent>
           </Card>
           <section aria-labelledby="report-summary-title">
-            <h2 id="report-summary-title" className="mb-3 text-lg font-black">
+            <h2
+              id="report-summary-title"
+              className="mb-3 text-lg font-semibold"
+            >
               3. Summary
             </h2>
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

@@ -62,7 +62,7 @@ Feature services currently use typed mock data. During NestJS integration, brows
 
 Copy `.env.example` to `.env.local` only when a backend is available. Leave the value unset while using mocks; `/api/...` returns a safe `503` instead of exposing configuration details.
 
-See [API contracts](./docs/API_CONTRACTS.md) for the NestJS handoff and [quality audit](./docs/QUALITY_AUDIT.md) for the final route/state/accessibility review.
+See [API contracts](./docs/API_CONTRACTS.md) for the frontend payload handoff, [backend blueprint](./docs/BACKEND_BLUEPRINT.md) for the NestJS/PostgreSQL multi-tenant schema and build order, and [quality audit](./docs/QUALITY_AUDIT.md) for the final route/state/accessibility review.
 
 ## Delivery plan
 

@@ -127,7 +127,7 @@ export function FeeStructures({
                     </ul>
                     <div className="mt-4 flex justify-between border-t pt-4">
                       <span className="font-bold">Total</span>
-                      <span className="font-mono text-lg font-black">
+                      <span className="font-mono text-lg font-semibold">
                         {formatCurrency(structure.total)}
                       </span>
                     </div>

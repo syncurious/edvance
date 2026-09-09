@@ -6,6 +6,7 @@ import { StoreProvider } from '@/store/provider';
 import './globals.css';
 
 export const metadata: Metadata = {
+  icons: { icon: '/favicon.svg' },
   title: {
     default: 'Edvance',
     template: '%s | Edvance',

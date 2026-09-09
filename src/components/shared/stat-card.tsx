@@ -64,21 +64,23 @@ export function StatCard({
   }
 
   return (
-    <Card>
+    <Card className="relative">
       <CardHeader className="grid grid-cols-[1fr_auto] gap-4">
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-muted-foreground">{label}</p>
-          <p className="mt-2 text-2xl font-black tracking-[-0.035em] sm:text-3xl">
+          <p className="text-[13px] font-medium text-muted-foreground">
+            {label}
+          </p>
+          <p className="mt-3 text-3xl font-semibold tabular-nums tracking-[-0.045em]">
             {state === 'ready' ? value : '—'}
           </p>
         </div>
         <span
           className={cn(
-            'grid size-11 place-items-center rounded-xl',
+            'grid size-9 place-items-center rounded-lg',
             toneClasses[tone],
           )}
         >
-          <Icon aria-hidden="true" className="size-5" />
+          <Icon aria-hidden="true" className="size-4.5" />
         </span>
       </CardHeader>
       <CardContent>
@@ -95,10 +97,10 @@ export function StatCard({
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
             <span
               className={cn(
-                'inline-flex items-center gap-1 font-bold',
+                'inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 font-medium',
                 trend.positive === false
-                  ? 'text-destructive'
-                  : 'text-success-foreground',
+                  ? 'bg-destructive/10 text-destructive'
+                  : 'bg-success text-success-foreground',
               )}
             >
               {(() => {

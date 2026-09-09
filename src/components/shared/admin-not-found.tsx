@@ -26,7 +26,7 @@ export function AdminNotFound({
             <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-secondary text-primary">
               <SearchX aria-hidden="true" className="size-6" />
             </span>
-            <h2 className="mt-5 text-xl font-black tracking-tight">
+            <h2 className="mt-5 text-xl font-semibold tracking-tight">
               Return to a known workspace
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">

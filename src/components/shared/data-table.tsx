@@ -57,7 +57,7 @@ export function DataTable<Row>({
 }) {
   return (
     <Card>
-      <CardHeader className="grid grid-cols-[1fr_auto] items-start gap-4">
+      <CardHeader className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <CardTitle>{title}</CardTitle>
           {description ? (

@@ -78,7 +78,7 @@ export function DefaultersPage({
               <p className="text-sm font-semibold text-muted-foreground">
                 Overdue invoices
               </p>
-              <p className="text-2xl font-black">
+              <p className="text-2xl font-semibold">
                 {state === 'loading' ? '—' : invoices.length}
               </p>
             </div>
@@ -93,7 +93,7 @@ export function DefaultersPage({
               <p className="text-sm font-semibold text-muted-foreground">
                 Outstanding overdue
               </p>
-              <p className="text-2xl font-black">
+              <p className="text-2xl font-semibold">
                 {state === 'loading' ? '—' : formatCurrency(overdueTotal)}
               </p>
             </div>

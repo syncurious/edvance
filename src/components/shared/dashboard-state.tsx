@@ -20,7 +20,7 @@ export function DashboardEmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <Empty className="min-h-52 border border-border">
+    <Empty className="min-h-52 rounded-xl border border-dashed border-border bg-muted/25">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <Inbox aria-hidden="true" />

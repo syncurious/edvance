@@ -35,9 +35,9 @@ Only use `[x] DONE` after verification. Creating a file without validating its b
 
 - Current requested day: Day 15
 - Last fully completed day: Day 15
-- Active task: The complete mock-backed frontend, including all settings and report destinations, is polished and ready for backend integration
-- Overall status: 15-DAY PLAN AND MISSED-PAGE FOLLOW-UP COMPLETE
-- Last updated: 2026-09-08
+- Active task: SaaS visual redesign — brand, shell, shared components, dashboards, and entry experience
+- Overall status: SAAS VISUAL REDESIGN IN PROGRESS
+- Last updated: 2026-09-09
 - Next action: Integrate the first NestJS feature from `docs/API_CONTRACTS.md` when its API is available
 
 ## Carry-over Queue

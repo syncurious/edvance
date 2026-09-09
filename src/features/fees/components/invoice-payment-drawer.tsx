@@ -151,7 +151,7 @@ export function InvoicePaymentDrawer({
                 <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   Balance
                 </p>
-                <p className="mt-1 text-2xl font-black">
+                <p className="mt-1 text-2xl font-semibold">
                   {formatCurrency(invoice.balance)}
                 </p>
               </div>
@@ -195,7 +195,7 @@ export function InvoicePaymentDrawer({
                 </div>
                 <div className="flex justify-between border-t pt-2">
                   <dt>Outstanding</dt>
-                  <dd className="font-black">
+                  <dd className="font-semibold">
                     {formatCurrency(invoice.balance)}
                   </dd>
                 </div>
