@@ -144,6 +144,13 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
           </>
         )}
       </Button>
+
+      <p className="text-center text-sm text-muted-foreground">
+        New to Edvance?{' '}
+        <Link href="/signup" className="font-bold text-primary hover:underline">
+          Create an account
+        </Link>
+      </p>
     </form>
   );
 }
