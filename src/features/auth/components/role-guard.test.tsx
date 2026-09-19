@@ -29,7 +29,7 @@ describe('RoleGuard', () => {
 
     render(
       <Provider store={store}>
-        <RoleGuard adminRole="school-admin">Private workspace</RoleGuard>
+        <RoleGuard>Private workspace</RoleGuard>
       </Provider>,
     );
 
@@ -41,23 +41,21 @@ describe('RoleGuard', () => {
     expect(screen.queryByText('Private workspace')).not.toBeInTheDocument();
   });
 
-  it('renders content for the required authenticated role', () => {
+  it('renders content for an authenticated session', () => {
     const store = makeStore();
     store.dispatch(
       authHydrated({
-        accessToken: 'test-session',
         user: {
           id: 'school-admin-1',
           name: 'School Admin',
           email: 'admin@example.test',
-          role: 'school-admin',
         },
       }),
     );
 
     render(
       <Provider store={store}>
-        <RoleGuard adminRole="school-admin">Private workspace</RoleGuard>
+        <RoleGuard>Private workspace</RoleGuard>
       </Provider>,
     );
 

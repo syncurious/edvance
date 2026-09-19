@@ -10,12 +10,10 @@ import authReducer, {
 } from '@/store/slices/auth-slice';
 
 const session = {
-  accessToken: 'test-session',
   user: {
     id: 'user-1',
     name: 'Test Admin',
     email: 'admin@example.test',
-    role: 'school-admin' as const,
   },
 };
 
@@ -24,13 +22,9 @@ describe('auth slice', () => {
     const loading = authReducer(initialAuthState, authRequestStarted());
     expect(loading.loading).toBe(true);
 
-    const authenticated = authReducer(
-      loading,
-      authRequestSucceeded({ session, rememberMe: true }),
-    );
+    const authenticated = authReducer(loading, authRequestSucceeded(session));
     expect(authenticated).toMatchObject({
       session,
-      rememberMe: true,
       hydrated: true,
       loading: false,
       error: null,

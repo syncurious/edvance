@@ -7,7 +7,6 @@ export interface AuthState {
   session: AuthSession | null;
   hydrated: boolean;
   loading: boolean;
-  rememberMe: boolean;
   error: string | null;
 }
 
@@ -15,7 +14,6 @@ export const initialAuthState: AuthState = {
   session: null,
   hydrated: false,
   loading: false,
-  rememberMe: false,
   error: null,
 };
 
@@ -32,12 +30,8 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    authRequestSucceeded(
-      state,
-      action: PayloadAction<{ session: AuthSession; rememberMe: boolean }>,
-    ) {
-      state.session = action.payload.session;
-      state.rememberMe = action.payload.rememberMe;
+    authRequestSucceeded(state, action: PayloadAction<AuthSession>) {
+      state.session = action.payload;
       state.hydrated = true;
       state.loading = false;
       state.error = null;
@@ -53,7 +47,6 @@ const authSlice = createSlice({
       state.session = null;
       state.hydrated = true;
       state.loading = false;
-      state.rememberMe = false;
       state.error = null;
     },
   },

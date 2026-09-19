@@ -4,6 +4,7 @@ import {
   forgotPasswordSchema,
   loginSchema,
   resetPasswordSchema,
+  signupSchema,
 } from '@/features/auth/schemas';
 
 describe('auth schemas', () => {
@@ -12,14 +13,29 @@ describe('auth schemas', () => {
       loginSchema.safeParse({
         email: 'admin@crescent.test',
         password: 'Demo123!',
-        rememberMe: true,
       }).success,
     ).toBe(true);
     expect(
       loginSchema.safeParse({
         email: 'not-an-email',
         password: '',
-        rememberMe: false,
+      }).success,
+    ).toBe(false);
+  });
+
+  it('validates matching secure signup passwords', () => {
+    expect(
+      signupSchema.safeParse({
+        email: 'admin@example.test',
+        password: 'Secure123',
+        confirmPassword: 'Secure123',
+      }).success,
+    ).toBe(true);
+    expect(
+      signupSchema.safeParse({
+        email: 'admin@example.test',
+        password: 'Secure123',
+        confirmPassword: 'Different123',
       }).success,
     ).toBe(false);
   });

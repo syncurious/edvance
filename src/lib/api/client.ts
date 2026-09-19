@@ -1,3 +1,5 @@
+import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+
 export interface ApiClient {
   request<T>(path: string, init?: RequestInit): Promise<T>;
 }
@@ -9,8 +11,15 @@ export function createApiClient(basePath = '/api'): ApiClient {
 
   return {
     async request<T>(path: string, init?: RequestInit): Promise<T> {
+      const { data, error } =
+        await getSupabaseBrowserClient().auth.getSession();
+      if (error || !data.session) {
+        throw new Error('You must be signed in to make this request.');
+      }
+
       const headers = new Headers(init?.headers);
       headers.set('content-type', 'application/json');
+      headers.set('authorization', `Bearer ${data.session.access_token}`);
 
       const response = await fetch(
         `${basePath.replace(/\/$/, '')}/${path.replace(/^\//, '')}`,

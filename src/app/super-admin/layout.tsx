@@ -7,7 +7,7 @@ export default function SuperAdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <RoleGuard adminRole="super-admin">
+    <RoleGuard>
       <AdminLayout adminRole="super-admin">{children}</AdminLayout>
     </RoleGuard>
   );

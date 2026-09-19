@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { WorkspaceSearch } from '@/components/layout/workspace-search';
 import { WorkspaceSelector } from '@/components/shared/workspace-selector';
-import { clearAuthSession } from '@/features/auth/auth-storage';
+import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import type { CampusId } from '@/features/dashboard/types';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { authSignedOut } from '@/store/slices/auth-slice';
@@ -85,8 +85,8 @@ export function AdminHeader({ config, onOpenNavigation }: AdminHeaderProps) {
   const workspaceValue =
     config.role === 'school-admin' ? selectedCampusId : selectedSchoolId;
 
-  function signOut() {
-    clearAuthSession();
+  async function signOut() {
+    await getSupabaseBrowserClient().auth.signOut();
     dispatch(authSignedOut());
     router.replace('/login');
   }

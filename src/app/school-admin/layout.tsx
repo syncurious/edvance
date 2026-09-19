@@ -7,7 +7,7 @@ export default function SchoolAdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <RoleGuard adminRole="school-admin">
+    <RoleGuard>
       <AdminLayout adminRole="school-admin">{children}</AdminLayout>
     </RoleGuard>
   );
