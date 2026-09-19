@@ -1,21 +1,19 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { AlertCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { saveAuthSession } from '@/features/auth/auth-storage';
 import { type LoginFormValues, loginSchema } from '@/features/auth/schemas';
-import { authService } from '@/features/auth/services';
-import { DEMO_ACCOUNTS } from '@/features/auth/services/mock-auth-service';
+import { toAuthSession } from '@/features/auth/supabase-session';
+import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   authRequestFailed,
@@ -24,11 +22,10 @@ import {
   selectAuth,
 } from '@/store/slices/auth-slice';
 
-function safeDestination(nextPath: string | undefined, adminRole: string) {
-  const roleRoot = `/${adminRole}`;
-  return nextPath?.startsWith(`${roleRoot}/`)
+function safeDestination(nextPath: string | undefined) {
+  return nextPath?.startsWith('/') && !nextPath.startsWith('//')
     ? nextPath
-    : `${roleRoot}/dashboard`;
+    : '/super-admin/dashboard';
 }
 
 export function LoginForm({ nextPath }: { nextPath?: string }) {
@@ -39,24 +36,25 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
     register,
     handleSubmit,
     setError,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '', rememberMe: false },
+    defaultValues: { email: '', password: '' },
   });
-  const rememberMe = watch('rememberMe');
 
   async function onSubmit(values: LoginFormValues) {
     dispatch(authRequestStarted());
     try {
-      const session = await authService.login(values);
-      saveAuthSession(session, values.rememberMe);
-      dispatch(
-        authRequestSucceeded({ session, rememberMe: values.rememberMe }),
-      );
-      router.replace(safeDestination(nextPath, session.user.role));
+      const { data, error } =
+        await getSupabaseBrowserClient().auth.signInWithPassword({
+          email: values.email,
+          password: values.password,
+        });
+      if (error || !data.session) {
+        throw new Error('Email or password is incorrect. Please try again.');
+      }
+      dispatch(authRequestSucceeded(toAuthSession(data.session)));
+      router.replace(safeDestination(nextPath));
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Sign in failed. Try again.';
@@ -129,20 +127,6 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
         ) : null}
       </div>
 
-      <label
-        htmlFor="remember-me"
-        className="flex min-h-10 cursor-pointer items-center gap-3 rounded-lg text-sm font-medium"
-      >
-        <Checkbox
-          id="remember-me"
-          checked={rememberMe}
-          onCheckedChange={(checked) =>
-            setValue('rememberMe', checked, { shouldDirty: true })
-          }
-        />
-        Keep me signed in on this device
-      </label>
-
       <Button
         type="submit"
         size="lg"
@@ -160,39 +144,6 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
           </>
         )}
       </Button>
-
-      <div className="rounded-xl border border-border bg-muted/45 p-4">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-          <ShieldCheck aria-hidden="true" className="size-4 text-primary" />{' '}
-          Demo access
-        </div>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
-          {DEMO_ACCOUNTS.map((account) => (
-            <button
-              key={account.email}
-              type="button"
-              className="rounded-lg border border-border bg-card px-3 py-2.5 text-left text-xs transition-colors hover:border-primary/45 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/30"
-              onClick={() => {
-                setValue('email', account.email, { shouldValidate: true });
-                setValue('password', account.password, {
-                  shouldValidate: true,
-                });
-              }}
-            >
-              <span className="block font-bold capitalize">
-                {account.session.user.role.replace('-', ' ')}
-              </span>
-              <span className="mt-0.5 block truncate text-muted-foreground">
-                {account.email}
-              </span>
-            </button>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          Password for both accounts:{' '}
-          <code className="font-bold text-foreground">Demo123!</code>
-        </p>
-      </div>
     </form>
   );
 }

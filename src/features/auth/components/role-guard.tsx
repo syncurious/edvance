@@ -5,17 +5,10 @@ import { LockKeyhole } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import type { UserRole } from '@/features/auth/types';
 import { useAppSelector } from '@/store/hooks';
 import { selectAuth } from '@/store/slices/auth-slice';
 
-export function RoleGuard({
-  adminRole,
-  children,
-}: {
-  adminRole: UserRole;
-  children: React.ReactNode;
-}) {
+export function RoleGuard({ children }: { children: React.ReactNode }) {
   const { hydrated, session } = useAppSelector(selectAuth);
   const pathname = usePathname();
   const router = useRouter();
@@ -27,11 +20,7 @@ export function RoleGuard({
       router.replace(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
-
-    if (session.user.role !== adminRole) {
-      router.replace(`/${session.user.role}/dashboard`);
-    }
-  }, [adminRole, hydrated, pathname, router, session]);
+  }, [hydrated, pathname, router, session]);
 
   if (!hydrated) {
     return (
@@ -50,7 +39,7 @@ export function RoleGuard({
     );
   }
 
-  if (!session || session.user.role !== adminRole) return null;
+  if (!session) return null;
 
   return children;
 }

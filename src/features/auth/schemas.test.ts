@@ -12,14 +12,12 @@ describe('auth schemas', () => {
       loginSchema.safeParse({
         email: 'admin@crescent.test',
         password: 'Demo123!',
-        rememberMe: true,
       }).success,
     ).toBe(true);
     expect(
       loginSchema.safeParse({
         email: 'not-an-email',
         password: '',
-        rememberMe: false,
       }).success,
     ).toBe(false);
   });

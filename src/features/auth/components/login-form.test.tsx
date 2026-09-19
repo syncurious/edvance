@@ -13,13 +13,34 @@ import { LoginForm } from '@/features/auth/components/login-form';
 import { makeStore } from '@/store';
 
 const replace = vi.fn();
+const signInWithPassword = vi.fn();
 
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(),
 }));
 
+vi.mock('@/lib/supabase/client', () => ({
+  getSupabaseBrowserClient: () => ({
+    auth: { signInWithPassword },
+  }),
+}));
+
 beforeEach(() => {
   replace.mockReset();
+  signInWithPassword.mockReset();
+  signInWithPassword.mockResolvedValue({
+    data: {
+      session: {
+        access_token: 'test-access-token',
+        user: {
+          id: 'user-1',
+          email: 'admin@example.test',
+          user_metadata: {},
+        },
+      },
+    },
+    error: null,
+  });
   vi.mocked(useRouter).mockReturnValue({ replace } as never);
   window.localStorage.clear();
   window.sessionStorage.clear();
@@ -36,16 +57,21 @@ function renderForm() {
 }
 
 describe('LoginForm', () => {
-  it('shows field-level validation without calling the service', async () => {
+  it('shows field-level validation without calling Supabase', async () => {
     renderForm();
     fireEvent.click(screen.getByRole('button', { name: 'Sign in' }));
 
     expect(await screen.findByText('Enter your email address.')).toBeVisible();
     expect(screen.getByText('Enter your password.')).toBeVisible();
+    expect(signInWithPassword).not.toHaveBeenCalled();
     expect(replace).not.toHaveBeenCalled();
   });
 
   it('shows an API-safe error for rejected credentials', async () => {
+    signInWithPassword.mockResolvedValue({
+      data: { session: null },
+      error: new Error('Invalid login credentials'),
+    });
     renderForm();
     fireEvent.change(screen.getByLabelText('Email address'), {
       target: { value: 'unknown@example.com' },
@@ -59,21 +85,22 @@ describe('LoginForm', () => {
     expect(screen.getByText(/Email or password is incorrect/)).toBeVisible();
   });
 
-  it('uses a demo account and routes into its role workspace', async () => {
+  it('signs in with Supabase and routes to the authenticated dashboard', async () => {
     renderForm();
-    fireEvent.click(screen.getByRole('button', { name: /School admin/i }));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: 'Keep me signed in on this device',
-      }),
-    );
+    fireEvent.change(screen.getByLabelText('Email address'), {
+      target: { value: 'admin@example.test' },
+    });
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'Password123!' },
+    });
     fireEvent.click(screen.getByRole('button', { name: 'Sign in' }));
 
     await waitFor(() =>
-      expect(replace).toHaveBeenCalledWith('/school-admin/dashboard'),
+      expect(replace).toHaveBeenCalledWith('/super-admin/dashboard'),
     );
-    expect(window.localStorage.getItem('edvance.auth.session')).toContain(
-      'admin@crescent.test',
-    );
+    expect(signInWithPassword).toHaveBeenCalledWith({
+      email: 'admin@example.test',
+      password: 'Password123!',
+    });
   });
 });
