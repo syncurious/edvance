@@ -47,9 +47,6 @@ export default function Home() {
             <Brand />
           </Link>
           <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            <a href="#platform" className="hover:text-primary">
-              Platform
-            </a>
             <a href="#workspaces" className="hover:text-primary">
               For your team
             </a>
@@ -94,19 +91,7 @@ export default function Home() {
               >
                 Explore the demo <ArrowRight aria-hidden="true" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                nativeButton={false}
-                render={<a href="#platform" aria-label="See the platform" />}
-              >
-                See the platform
-              </Button>
             </div>
-            <p className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-              <Check aria-hidden="true" className="size-3.5 text-primary" /> Two
-              demo workspaces. No setup required.
-            </p>
           </div>
           <div className="relative min-w-0">
             <ProductPreview />
@@ -118,7 +103,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="platform" className="scroll-mt-8 border-y bg-card">
+      <section className="scroll-mt-8 border-y bg-card">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
           <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
@@ -178,13 +163,7 @@ export default function Home() {
               title: 'School workspace',
               icon: GraduationCap,
               description: 'Students, staff, attendance, exams, and fees.',
-              href: '/school-admin/dashboard',
-            },
-            {
-              title: 'Platform workspace',
-              icon: Building2,
-              description: 'Schools, subscriptions, billing, and growth.',
-              href: '/super-admin/dashboard',
+              href: '/login',
             },
           ].map(({ title, icon: Icon, description, href }) => (
             <Link

@@ -13,6 +13,12 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { type LoginFormValues, loginSchema } from '@/features/auth/schemas';
 import { toAuthSession } from '@/features/auth/supabase-session';
+import {
+  canAccessAudience,
+  dashboardFor,
+  getAuthorizationSession,
+  type LoginAudience,
+} from '@/features/auth/authorization';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -22,13 +28,20 @@ import {
   selectAuth,
 } from '@/store/slices/auth-slice';
 
-function safeDestination(nextPath: string | undefined) {
-  return nextPath?.startsWith('/') && !nextPath.startsWith('//')
+function safeDestination(nextPath: string | undefined, audience: LoginAudience) {
+  const workspacePrefix = audience === 'platform' ? '/platform/' : '/school/';
+  return nextPath?.startsWith(workspacePrefix) && !nextPath.startsWith('//')
     ? nextPath
-    : '/super-admin/dashboard';
+    : dashboardFor(audience);
 }
 
-export function LoginForm({ nextPath }: { nextPath?: string }) {
+export function LoginForm({
+  nextPath,
+  audience = 'school',
+}: {
+  nextPath?: string;
+  audience?: LoginAudience;
+}) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector(selectAuth);
@@ -53,8 +66,13 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
       if (error || !data.session) {
         throw new Error('Email or password is incorrect. Please try again.');
       }
+      const authorization = await getAuthorizationSession();
+      if (!canAccessAudience(authorization, audience)) {
+        await getSupabaseBrowserClient().auth.signOut();
+        throw new Error('This account does not have access to this workspace.');
+      }
       dispatch(authRequestSucceeded(toAuthSession(data.session)));
-      router.replace(safeDestination(nextPath));
+      router.replace(safeDestination(nextPath, audience));
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Sign in failed. Try again.';
@@ -145,12 +163,6 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
         )}
       </Button>
 
-      <p className="text-center text-sm text-muted-foreground">
-        New to Edvance?{' '}
-        <Link href="/signup" className="font-bold text-primary hover:underline">
-          Create an account
-        </Link>
-      </p>
     </form>
   );
 }

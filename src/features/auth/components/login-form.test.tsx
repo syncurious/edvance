@@ -14,6 +14,9 @@ import { makeStore } from '@/store';
 
 const replace = vi.fn();
 const signInWithPassword = vi.fn();
+const { getAuthorizationSession } = vi.hoisted(() => ({
+  getAuthorizationSession: vi.fn(),
+}));
 
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(),
@@ -23,6 +26,12 @@ vi.mock('@/lib/supabase/client', () => ({
   getSupabaseBrowserClient: () => ({
     auth: { signInWithPassword },
   }),
+}));
+
+vi.mock('@/features/auth/authorization', () => ({
+  getAuthorizationSession,
+  canAccessAudience: () => true,
+  dashboardFor: () => '/school/dashboard',
 }));
 
 beforeEach(() => {
@@ -40,6 +49,11 @@ beforeEach(() => {
       },
     },
     error: null,
+  });
+  getAuthorizationSession.mockResolvedValue({
+    user: { id: 'user-1', email: 'admin@example.test' },
+    platform: { roles: [], permissions: [] },
+    memberships: [],
   });
   vi.mocked(useRouter).mockReturnValue({ replace } as never);
   window.localStorage.clear();
@@ -96,7 +110,7 @@ describe('LoginForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Sign in' }));
 
     await waitFor(() =>
-      expect(replace).toHaveBeenCalledWith('/super-admin/dashboard'),
+      expect(replace).toHaveBeenCalledWith('/school/dashboard'),
     );
     expect(signInWithPassword).toHaveBeenCalledWith({
       email: 'admin@example.test',

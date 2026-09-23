@@ -8,16 +8,25 @@ import { makeStore } from '@/store';
 import { authHydrated } from '@/store/slices/auth-slice';
 
 const replace = vi.fn();
+const { getAuthorizationSession } = vi.hoisted(() => ({
+  getAuthorizationSession: vi.fn(),
+}));
 
 vi.mock('next/navigation', () => ({
   usePathname: vi.fn(),
   useRouter: vi.fn(),
 }));
 
+vi.mock('@/features/auth/authorization', () => ({
+  getAuthorizationSession,
+  canAccessAudience: () => true,
+}));
+
 beforeEach(() => {
   replace.mockReset();
   vi.mocked(usePathname).mockReturnValue('/school-admin/students');
   vi.mocked(useRouter).mockReturnValue({ replace } as never);
+  getAuthorizationSession.mockResolvedValue({});
 });
 
 afterEach(cleanup);
@@ -29,7 +38,7 @@ describe('RoleGuard', () => {
 
     render(
       <Provider store={store}>
-        <RoleGuard>Private workspace</RoleGuard>
+        <RoleGuard audience="school">Private workspace</RoleGuard>
       </Provider>,
     );
 
@@ -41,7 +50,7 @@ describe('RoleGuard', () => {
     expect(screen.queryByText('Private workspace')).not.toBeInTheDocument();
   });
 
-  it('renders content for an authenticated session', () => {
+  it('renders content for an authorized session', async () => {
     const store = makeStore();
     store.dispatch(
       authHydrated({
@@ -55,11 +64,11 @@ describe('RoleGuard', () => {
 
     render(
       <Provider store={store}>
-        <RoleGuard>Private workspace</RoleGuard>
+        <RoleGuard audience="school">Private workspace</RoleGuard>
       </Provider>,
     );
 
-    expect(screen.getByText('Private workspace')).toBeVisible();
+    expect(await screen.findByText('Private workspace')).toBeVisible();
     expect(replace).not.toHaveBeenCalled();
   });
 });

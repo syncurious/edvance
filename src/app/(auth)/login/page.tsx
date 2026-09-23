@@ -4,8 +4,8 @@ import { AuthPage } from '@/features/auth/components/auth-page';
 import { LoginForm } from '@/features/auth/components/login-form';
 
 export const metadata: Metadata = {
-  title: 'Sign in',
-  description: 'Sign in to your Edvance administration workspace.',
+  title: 'School Admin sign in',
+  description: 'Sign in to your school administration workspace.',
 };
 
 export default async function LoginPage({
@@ -19,9 +19,9 @@ export default async function LoginPage({
 
   return (
     <AuthPage
-      eyebrow="Welcome back"
-      title="Sign in to Edvance"
-      description="Use your administrator account to continue to your role-specific workspace."
+      eyebrow="School administration"
+      title="Sign in to your school"
+      description="Use your School Admin account to continue."
     >
       <LoginForm nextPath={nextPath} />
     </AuthPage>

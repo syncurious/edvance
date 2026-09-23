@@ -1,17 +1,29 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LockKeyhole } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  canAccessAudience,
+  getAuthorizationSession,
+  type LoginAudience,
+} from '@/features/auth/authorization';
 import { useAppSelector } from '@/store/hooks';
 import { selectAuth } from '@/store/slices/auth-slice';
 
-export function RoleGuard({ children }: { children: React.ReactNode }) {
+export function RoleGuard({
+  children,
+  audience,
+}: {
+  children: React.ReactNode;
+  audience: LoginAudience;
+}) {
   const { hydrated, session } = useAppSelector(selectAuth);
   const pathname = usePathname();
   const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -20,7 +32,17 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
       router.replace(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
-  }, [hydrated, pathname, router, session]);
+    setAuthorized(false);
+    void getAuthorizationSession()
+      .then((authorization) => {
+        if (canAccessAudience(authorization, audience)) {
+          setAuthorized(true);
+          return;
+        }
+        router.replace(audience === 'platform' ? '/platform/login' : '/login');
+      })
+      .catch(() => router.replace(audience === 'platform' ? '/platform/login' : '/login'));
+  }, [audience, hydrated, pathname, router, session]);
 
   if (!hydrated) {
     return (
@@ -39,7 +61,7 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!session) return null;
+  if (!session || !authorized) return null;
 
   return children;
 }
