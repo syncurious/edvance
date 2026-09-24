@@ -1,7 +1,6 @@
 import type { AuthService } from '@/features/auth/services/auth-service';
-import { mockAuthService } from '@/features/auth/services/mock-auth-service';
+import { httpAuthService } from '@/features/auth/services/http-auth-service';
 
-// Replace this implementation with an HTTP-backed AuthService when the API is ready.
-export const authService: AuthService = mockAuthService;
+export const authService: AuthService = httpAuthService;
 
 export type { AuthService } from '@/features/auth/services/auth-service';

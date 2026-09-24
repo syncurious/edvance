@@ -8,6 +8,11 @@ export const baseApi = createApi({
     headers: {
       accept: 'application/json',
     },
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as { auth: { session: { accessToken: string } | null } }).auth.session?.accessToken;
+      if (token) headers.set('authorization', `Bearer ${token}`);
+      return headers;
+    },
   }),
   tagTypes: [
     'Attendance',
